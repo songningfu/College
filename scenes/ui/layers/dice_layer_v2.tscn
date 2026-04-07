@@ -1,0 +1,193 @@
+[gd_scene load_steps=2 format=3 uid="uid://dice_layer_v2"]
+
+[ext_resource type="Script" path="res://scripts/ui/dice_layer_v2.gd" id="1_script"]
+
+[node name="DiceLayer" type="CanvasLayer"]
+layer = 20
+visible = false
+script = ExtResource("1_script")
+
+[node name="DimOverlay" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.4)
+
+[node name="DicePanel" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(720, 520)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -360.0
+offset_top = -260.0
+offset_right = 360.0
+offset_bottom = 260.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="DicePanel"]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="TopSpacer" type="Control" parent="DicePanel/VBox"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="Header" type="VBoxContainer" parent="DicePanel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="EventTitle" type="Label" parent="DicePanel/VBox/Header"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.909804, 0.909804, 0.909804, 1)
+theme_override_font_sizes/font_size = 22
+text = "课堂发言"
+horizontal_alignment = 1
+
+[node name="AttrLabel" type="Label" parent="DicePanel/VBox/Header"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.533333, 0.564706, 0.643137, 1)
+theme_override_font_sizes/font_size = 14
+text = "判定属性：口才"
+horizontal_alignment = 1
+
+[node name="Spacer1" type="Control" parent="DicePanel/VBox"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="DiceRow" type="HBoxContainer" parent="DicePanel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="LeftDie" type="Panel" parent="DicePanel/VBox/DiceRow"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+
+[node name="DieVal" type="Label" parent="DicePanel/VBox/DiceRow/LeftDie"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.333333, 0.356863, 0.427451, 1)
+theme_override_font_sizes/font_size = 36
+text = "?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RightDie" type="Panel" parent="DicePanel/VBox/DiceRow"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+
+[node name="DieVal" type="Label" parent="DicePanel/VBox/DiceRow/RightDie"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.333333, 0.356863, 0.427451, 1)
+theme_override_font_sizes/font_size = 36
+text = "?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Spacer2" type="Control" parent="DicePanel/VBox"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+
+[node name="ModifierText" type="Label" parent="DicePanel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.533333, 0.564706, 0.643137, 1)
+theme_override_font_sizes/font_size = 15
+text = "你的口才还不错，而且今天心情不坏。（+3）"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Spacer3" type="Control" parent="DicePanel/VBox"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="RollBtn" type="Button" parent="DicePanel/VBox"]
+custom_minimum_size = Vector2(200, 52)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "掷骰子"
+
+[node name="CalcLabel" type="Label" parent="DicePanel/VBox"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.533333, 0.564706, 0.643137, 1)
+theme_override_font_sizes/font_size = 14
+text = "4 + 5 + 3 = 12"
+horizontal_alignment = 1
+
+[node name="Divider" type="ColorRect" parent="DicePanel/VBox"]
+visible = false
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(1, 1, 1, 0.0588235)
+
+[node name="ResultSection" type="VBoxContainer" parent="DicePanel/VBox"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="ResultTitle" type="Label" parent="DicePanel/VBox/ResultSection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.941176, 0.780392, 0.368627, 1)
+theme_override_font_sizes/font_size = 28
+text = "大成功！"
+horizontal_alignment = 1
+
+[node name="ResultDesc" type="RichTextLabel" parent="DicePanel/VBox/ResultSection"]
+custom_minimum_size = Vector2(640, 60)
+layout_mode = 2
+theme_override_colors/default_color = Color(0.909804, 0.909804, 0.909804, 1)
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+text = "[center]你的发言清晰有力，连老师都多看了你一眼。[/center]"
+fit_content = true
+scroll_active = false
+
+[node name="ResultStats" type="Label" parent="DicePanel/VBox/ResultSection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.533333, 0.564706, 0.643137, 1)
+theme_override_font_sizes/font_size = 13
+text = "口才经验+1 · 心情+1 · 班级印象+3"
+horizontal_alignment = 1
+
+[node name="Spacer4" type="Control" parent="DicePanel/VBox"]
+visible = false
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+
+[node name="ContinueBtn" type="Button" parent="DicePanel/VBox"]
+visible = false
+custom_minimum_size = Vector2(160, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "继续"
+
+[node name="BottomSpacer" type="Control" parent="DicePanel/VBox"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="ResultGlow" type="ColorRect" parent="DicePanel"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.909804, 0.658824, 0.219608, 0.0588235)

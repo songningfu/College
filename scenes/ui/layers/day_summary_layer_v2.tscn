@@ -1,0 +1,165 @@
+[gd_scene load_steps=2 format=3 uid="uid://day_summary_layer_v2"]
+
+[ext_resource type="Script" path="res://scripts/ui/day_summary_layer_v2.gd" id="1_script"]
+
+[node name="DaySummaryLayer" type="CanvasLayer"]
+layer = 12
+visible = false
+script = ExtResource("1_script")
+
+[node name="DimOverlay" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.4)
+
+[node name="SummaryPanel" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(1200, 720)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -600.0
+offset_top = -360.0
+offset_right = 600.0
+offset_bottom = 360.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="SummaryPanel"]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="TopSpacer" type="Control" parent="SummaryPanel/VBox"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="Header" type="VBoxContainer" parent="SummaryPanel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="DayTitle" type="Label" parent="SummaryPanel/VBox/Header"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.909804, 0.909804, 0.909804, 1)
+theme_override_font_sizes/font_size = 24
+text = "Day 01 结束 · 周一"
+horizontal_alignment = 1
+
+[node name="FlavorText" type="Label" parent="SummaryPanel/VBox/Header"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.533333, 0.564706, 0.643137, 1)
+theme_override_font_sizes/font_size = 15
+text = "你的第一个大学夜晚，安静又漫长。"
+horizontal_alignment = 1
+
+[node name="Divider" type="ColorRect" parent="SummaryPanel/VBox"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(1, 1, 1, 0.0588235)
+
+[node name="ContentRow" type="HBoxContainer" parent="SummaryPanel/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 40
+
+[node name="ActionCol" type="VBoxContainer" parent="SummaryPanel/VBox/ContentRow"]
+custom_minimum_size = Vector2(520, 0)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="ColTitle" type="Label" parent="SummaryPanel/VBox/ContentRow/ActionCol"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.533333, 0.564706, 0.643137, 1)
+theme_override_font_sizes/font_size = 16
+text = "今日行动"
+
+[node name="ActionList" type="VBoxContainer" parent="SummaryPanel/VBox/ContentRow/ActionCol"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="MorningAct" type="Label" parent="SummaryPanel/VBox/ContentRow/ActionCol/ActionList"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.909804, 0.909804, 0.909804, 1)
+theme_override_font_sizes/font_size = 14
+text = "上午：上专业课"
+
+[node name="AfternoonAct" type="Label" parent="SummaryPanel/VBox/ContentRow/ActionCol/ActionList"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.909804, 0.909804, 0.909804, 1)
+theme_override_font_sizes/font_size = 14
+text = "下午：社团活动"
+
+[node name="EveningAct" type="Label" parent="SummaryPanel/VBox/ContentRow/ActionCol/ActionList"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.909804, 0.909804, 0.909804, 1)
+theme_override_font_sizes/font_size = 14
+text = "晚间：宿舍闲聊"
+
+[node name="Spacer" type="Control" parent="SummaryPanel/VBox/ContentRow/ActionCol"]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+
+[node name="EventTitle" type="Label" parent="SummaryPanel/VBox/ContentRow/ActionCol"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.909804, 0.658824, 0.219608, 1)
+theme_override_font_sizes/font_size = 14
+text = "触发事件"
+
+[node name="EventList" type="VBoxContainer" parent="SummaryPanel/VBox/ContentRow/ActionCol"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="StatsCol" type="VBoxContainer" parent="SummaryPanel/VBox/ContentRow"]
+custom_minimum_size = Vector2(520, 0)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="ColTitle" type="Label" parent="SummaryPanel/VBox/ContentRow/StatsCol"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.533333, 0.564706, 0.643137, 1)
+theme_override_font_sizes/font_size = 16
+text = "数值变化"
+
+[node name="StatsRows" type="VBoxContainer" parent="SummaryPanel/VBox/ContentRow/StatsCol"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="RelationSection" type="VBoxContainer" parent="SummaryPanel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="SecTitle" type="Label" parent="SummaryPanel/VBox/RelationSection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.533333, 0.564706, 0.643137, 1)
+theme_override_font_sizes/font_size = 16
+text = "关系变化"
+horizontal_alignment = 1
+
+[node name="NPCGrid" type="HBoxContainer" parent="SummaryPanel/VBox/RelationSection"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="BtnRow" type="HBoxContainer" parent="SummaryPanel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="PhoneCTA" type="Button" parent="SummaryPanel/VBox/BtnRow"]
+visible = false
+custom_minimum_size = Vector2(200, 48)
+layout_mode = 2
+text = "📱 有人找你，先看看？"
+
+[node name="NextDayBtn" type="Button" parent="SummaryPanel/VBox/BtnRow"]
+custom_minimum_size = Vector2(200, 48)
+layout_mode = 2
+text = "进入下一天 →"
+
+[node name="BottomSpacer" type="Control" parent="SummaryPanel/VBox"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2

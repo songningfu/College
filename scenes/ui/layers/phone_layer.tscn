@@ -1,0 +1,161 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/phone_layer.gd" id="1_script"]
+
+[node name="PhoneLayer" type="Control"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_script")
+
+[node name="Shade" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0470588, 0.054902, 0.0823529, 0.55)
+
+[node name="PhoneFrame" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -560.0
+offset_top = -420.0
+offset_right = -40.0
+offset_bottom = 420.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="PhoneMargin" type="MarginContainer" parent="PhoneFrame"]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 18
+
+[node name="RootVBox" type="VBoxContainer" parent="PhoneFrame/PhoneMargin"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 14
+
+[node name="TopBar" type="HBoxContainer" parent="PhoneFrame/PhoneMargin/RootVBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="TopTitle" type="Label" parent="PhoneFrame/PhoneMargin/RootVBox/TopBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "手机层测试 UI"
+
+[node name="CloseButton" type="Button" parent="PhoneFrame/PhoneMargin/RootVBox/TopBar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "关闭"
+
+[node name="WallpaperNoteLabel" type="Label" parent="PhoneFrame/PhoneMargin/RootVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+autowrap_mode = 3
+text = "TODO: 手机壁纸 / 状态栏图标 / 更真实的假系统包装"
+
+[node name="TabRow" type="HBoxContainer" parent="PhoneFrame/PhoneMargin/RootVBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="MessagesTab" type="Button" parent="PhoneFrame/PhoneMargin/RootVBox/TabRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "消息"
+
+[node name="ProfileTab" type="Button" parent="PhoneFrame/PhoneMargin/RootVBox/TabRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "资料"
+
+[node name="StoreTab" type="Button" parent="PhoneFrame/PhoneMargin/RootVBox/TabRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "商城"
+
+[node name="SettingsTab" type="Button" parent="PhoneFrame/PhoneMargin/RootVBox/TabRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "设置"
+
+[node name="ContentRow" type="HBoxContainer" parent="PhoneFrame/PhoneMargin/RootVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="ListPanel" type="PanelContainer" parent="PhoneFrame/PhoneMargin/RootVBox/ContentRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_minimum_size = Vector2(180, 0)
+
+[node name="ListMargin" type="MarginContainer" parent="PhoneFrame/PhoneMargin/RootVBox/ContentRow/ListPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="ListScroll" type="ScrollContainer" parent="PhoneFrame/PhoneMargin/RootVBox/ContentRow/ListPanel/ListMargin"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ChatList" type="VBoxContainer" parent="PhoneFrame/PhoneMargin/RootVBox/ContentRow/ListPanel/ListMargin/ListScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="DetailPanel" type="PanelContainer" parent="PhoneFrame/PhoneMargin/RootVBox/ContentRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="DetailMargin" type="MarginContainer" parent="PhoneFrame/PhoneMargin/RootVBox/ContentRow/DetailPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="DetailVBox" type="VBoxContainer" parent="PhoneFrame/PhoneMargin/RootVBox/ContentRow/DetailPanel/DetailMargin"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="DetailTitleLabel" type="Label" parent="PhoneFrame/PhoneMargin/RootVBox/ContentRow/DetailPanel/DetailMargin/DetailVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "聊天详情"
+
+[node name="DetailBodyLabel" type="RichTextLabel" parent="PhoneFrame/PhoneMargin/RootVBox/ContentRow/DetailPanel/DetailMargin/DetailVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+scroll_active = true
+text = "TODO: 聊天内容"
+
+[node name="DetailNoteLabel" type="Label" parent="PhoneFrame/PhoneMargin/RootVBox/ContentRow/DetailPanel/DetailMargin/DetailVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+autowrap_mode = 3
+text = "TODO: 聊天气泡、输入框、时间戳、头像素材"

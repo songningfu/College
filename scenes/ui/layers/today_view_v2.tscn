@@ -1,0 +1,531 @@
+[gd_scene format=3 uid="uid://da2mkwqgmnbtv"]
+
+[ext_resource type="Script" path="res://scripts/ui/today_view_v2.gd" id="1_script"]
+
+[node name="TodayView" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.101961, 0.121569, 0.180392, 1)
+
+[node name="StatusBar" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(1920, 48)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 48.0
+grow_horizontal = 2
+
+[node name="HBox" type="HBoxContainer" parent="StatusBar"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="LeftSpacer" type="Control" parent="StatusBar/HBox"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+
+[node name="ResourceGroup" type="HBoxContainer" parent="StatusBar/HBox"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="EnergyInd" type="HBoxContainer" parent="StatusBar/HBox/ResourceGroup"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Icon" type="Label" parent="StatusBar/HBox/ResourceGroup/EnergyInd"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "⚡"
+
+[node name="Value" type="Label" parent="StatusBar/HBox/ResourceGroup/EnergyInd"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.909804, 0.909804, 0.909804, 1)
+theme_override_font_sizes/font_size = 18
+text = "7/10"
+
+[node name="Bar" type="ProgressBar" parent="StatusBar/HBox/ResourceGroup/EnergyInd"]
+custom_minimum_size = Vector2(60, 3)
+layout_mode = 2
+max_value = 10.0
+value = 7.0
+show_percentage = false
+
+[node name="MoodInd" type="HBoxContainer" parent="StatusBar/HBox/ResourceGroup"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Icon" type="Label" parent="StatusBar/HBox/ResourceGroup/MoodInd"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "😊"
+
+[node name="Value" type="Label" parent="StatusBar/HBox/ResourceGroup/MoodInd"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.909804, 0.909804, 0.909804, 1)
+theme_override_font_sizes/font_size = 18
+text = "6"
+
+[node name="Bar" type="ProgressBar" parent="StatusBar/HBox/ResourceGroup/MoodInd"]
+custom_minimum_size = Vector2(60, 3)
+layout_mode = 2
+max_value = 10.0
+value = 6.0
+show_percentage = false
+
+[node name="MoneyInd" type="HBoxContainer" parent="StatusBar/HBox/ResourceGroup"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Icon" type="Label" parent="StatusBar/HBox/ResourceGroup/MoneyInd"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "💰"
+
+[node name="Value" type="Label" parent="StatusBar/HBox/ResourceGroup/MoneyInd"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.941176, 0.780392, 0.368627, 1)
+theme_override_font_sizes/font_size = 18
+text = "200"
+
+[node name="CenterSpacer" type="Control" parent="StatusBar/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AttrGroup" type="HBoxContainer" parent="StatusBar/HBox"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Knowledge" type="HBoxContainer" parent="StatusBar/HBox/AttrGroup"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Dot" type="ColorRect" parent="StatusBar/HBox/AttrGroup/Knowledge"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+color = Color(0.227451, 0.372549, 0.541176, 1)
+
+[node name="Value" type="Label" parent="StatusBar/HBox/AttrGroup/Knowledge"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.533333, 0.564706, 0.643137, 1)
+theme_override_font_sizes/font_size = 14
+text = "2"
+
+[node name="Eloquence" type="HBoxContainer" parent="StatusBar/HBox/AttrGroup"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Dot" type="ColorRect" parent="StatusBar/HBox/AttrGroup/Eloquence"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+color = Color(0.768627, 0.470588, 0.196078, 1)
+
+[node name="Value" type="Label" parent="StatusBar/HBox/AttrGroup/Eloquence"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.533333, 0.564706, 0.643137, 1)
+theme_override_font_sizes/font_size = 14
+text = "2"
+
+[node name="Physique" type="HBoxContainer" parent="StatusBar/HBox/AttrGroup"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Dot" type="ColorRect" parent="StatusBar/HBox/AttrGroup/Physique"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+color = Color(0.290196, 0.541176, 0.352941, 1)
+
+[node name="Value" type="Label" parent="StatusBar/HBox/AttrGroup/Physique"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.533333, 0.564706, 0.643137, 1)
+theme_override_font_sizes/font_size = 14
+text = "2"
+
+[node name="Insight" type="HBoxContainer" parent="StatusBar/HBox/AttrGroup"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Dot" type="ColorRect" parent="StatusBar/HBox/AttrGroup/Insight"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+color = Color(0.352941, 0.478431, 0.352941, 1)
+
+[node name="Value" type="Label" parent="StatusBar/HBox/AttrGroup/Insight"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.533333, 0.564706, 0.643137, 1)
+theme_override_font_sizes/font_size = 14
+text = "2"
+
+[node name="RightSpacer" type="Control" parent="StatusBar/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="FuncBtns" type="HBoxContainer" parent="StatusBar/HBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="PhoneBtn" type="TextureButton" parent="StatusBar/HBox/FuncBtns"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+
+[node name="UnreadDot" type="ColorRect" parent="StatusBar/HBox/FuncBtns/PhoneBtn"]
+visible = false
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -6.0
+offset_top = -2.0
+offset_right = 2.0
+offset_bottom = 6.0
+grow_horizontal = 0
+color = Color(0.831373, 0.337255, 0.290196, 1)
+
+[node name="ComputerBtn" type="TextureButton" parent="StatusBar/HBox/FuncBtns"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+
+[node name="RightMargin" type="Control" parent="StatusBar/HBox"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+
+[node name="StageArea" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 0
+offset_top = 48.0
+offset_right = 1920.0
+offset_bottom = 468.0
+
+[node name="StageBg" type="ColorRect" parent="StageArea"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0745098, 0.0941176, 0.145098, 1)
+
+[node name="DayLabel" type="Label" parent="StageArea"]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 20.0
+offset_right = 300.0
+offset_bottom = 40.0
+theme_override_colors/font_color = Color(0.533333, 0.564706, 0.643137, 1)
+theme_override_font_sizes/font_size = 14
+text = "Day 01 · 周一"
+
+[node name="PeriodLabel" type="Label" parent="StageArea"]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 44.0
+offset_right = 300.0
+offset_bottom = 70.0
+theme_override_colors/font_color = Color(0.909804, 0.909804, 0.909804, 1)
+theme_override_font_sizes/font_size = 20
+text = "上午 · 校园日景"
+
+[node name="ContextText" type="Label" parent="StageArea"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -400.0
+offset_top = -100.0
+offset_right = 400.0
+offset_bottom = -80.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.533333, 0.564706, 0.643137, 1)
+theme_override_font_sizes/font_size = 16
+text = ""
+horizontal_alignment = 1
+
+[node name="CharacterSlots" type="Control" parent="StageArea"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PeriodBar" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(1920, 64)
+layout_mode = 1
+anchors_preset = 0
+offset_top = 468.0
+offset_right = 1920.0
+offset_bottom = 532.0
+
+[node name="HBox" type="HBoxContainer" parent="PeriodBar"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="MorningSlot" type="Panel" parent="PeriodBar/HBox"]
+custom_minimum_size = Vector2(640, 64)
+layout_mode = 2
+
+[node name="HBox" type="HBoxContainer" parent="PeriodBar/HBox/MorningSlot"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+
+[node name="LeftMargin" type="Control" parent="PeriodBar/HBox/MorningSlot/HBox"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="Icon" type="Label" parent="PeriodBar/HBox/MorningSlot/HBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "☀"
+
+[node name="Name" type="Label" parent="PeriodBar/HBox/MorningSlot/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.909804, 0.909804, 0.909804, 1)
+theme_override_font_sizes/font_size = 16
+text = "上午"
+
+[node name="Spacer" type="Control" parent="PeriodBar/HBox/MorningSlot/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Status" type="Label" parent="PeriodBar/HBox/MorningSlot/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.909804, 0.909804, 0.909804, 1)
+theme_override_font_sizes/font_size = 16
+text = "进行中 · AP 2/2"
+
+[node name="RightMargin" type="Control" parent="PeriodBar/HBox/MorningSlot/HBox"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="ActiveLine" type="ColorRect" parent="PeriodBar/HBox/MorningSlot"]
+custom_minimum_size = Vector2(3, 48)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -24.0
+offset_right = 3.0
+offset_bottom = 24.0
+grow_vertical = 2
+color = Color(0.909804, 0.658824, 0.219608, 1)
+
+[node name="Div1" type="ColorRect" parent="PeriodBar/HBox"]
+custom_minimum_size = Vector2(1, 48)
+layout_mode = 2
+color = Color(1, 1, 1, 0.0588235)
+
+[node name="AfternoonSlot" type="Panel" parent="PeriodBar/HBox"]
+custom_minimum_size = Vector2(640, 64)
+layout_mode = 2
+
+[node name="HBox" type="HBoxContainer" parent="PeriodBar/HBox/AfternoonSlot"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+
+[node name="LeftMargin" type="Control" parent="PeriodBar/HBox/AfternoonSlot/HBox"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="Icon" type="Label" parent="PeriodBar/HBox/AfternoonSlot/HBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "🌤"
+
+[node name="Name" type="Label" parent="PeriodBar/HBox/AfternoonSlot/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.533333, 0.564706, 0.643137, 1)
+theme_override_font_sizes/font_size = 16
+text = "下午"
+
+[node name="Spacer" type="Control" parent="PeriodBar/HBox/AfternoonSlot/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Status" type="Label" parent="PeriodBar/HBox/AfternoonSlot/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.533333, 0.564706, 0.643137, 1)
+theme_override_font_sizes/font_size = 16
+text = "未开始"
+
+[node name="RightMargin" type="Control" parent="PeriodBar/HBox/AfternoonSlot/HBox"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="Div2" type="ColorRect" parent="PeriodBar/HBox"]
+custom_minimum_size = Vector2(1, 48)
+layout_mode = 2
+color = Color(1, 1, 1, 0.0588235)
+
+[node name="EveningSlot" type="Panel" parent="PeriodBar/HBox"]
+custom_minimum_size = Vector2(640, 64)
+layout_mode = 2
+
+[node name="HBox" type="HBoxContainer" parent="PeriodBar/HBox/EveningSlot"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+
+[node name="LeftMargin" type="Control" parent="PeriodBar/HBox/EveningSlot/HBox"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="Icon" type="Label" parent="PeriodBar/HBox/EveningSlot/HBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "🌙"
+
+[node name="Name" type="Label" parent="PeriodBar/HBox/EveningSlot/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.533333, 0.564706, 0.643137, 1)
+theme_override_font_sizes/font_size = 16
+text = "晚间"
+
+[node name="Spacer" type="Control" parent="PeriodBar/HBox/EveningSlot/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Status" type="Label" parent="PeriodBar/HBox/EveningSlot/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.533333, 0.564706, 0.643137, 1)
+theme_override_font_sizes/font_size = 16
+text = "未开始"
+
+[node name="RightMargin" type="Control" parent="PeriodBar/HBox/EveningSlot/HBox"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="HandArea" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(1920, 548)
+layout_mode = 1
+anchors_preset = 0
+offset_top = 532.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="VBox" type="VBoxContainer" parent="HandArea"]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="TopSpacer" type="Control" parent="HandArea/VBox"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
+[node name="TitleRow" type="HBoxContainer" parent="HandArea/VBox"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="LeftMargin" type="Control" parent="HandArea/VBox/TitleRow"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="HandArea/VBox/TitleRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.533333, 0.564706, 0.643137, 1)
+theme_override_font_sizes/font_size = 16
+text = "上午 · 行动手牌"
+
+[node name="Spacer" type="Control" parent="HandArea/VBox/TitleRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ConfirmBtn" type="Button" parent="HandArea/VBox/TitleRow"]
+custom_minimum_size = Vector2(140, 44)
+layout_mode = 2
+disabled = true
+text = "确认行动"
+
+[node name="RightMargin" type="Control" parent="HandArea/VBox/TitleRow"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+
+[node name="CardRow" type="HBoxContainer" parent="HandArea/VBox"]
+custom_minimum_size = Vector2(0, 280)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="DetailPanel" type="Panel" parent="HandArea/VBox"]
+visible = false
+custom_minimum_size = Vector2(880, 120)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="HandArea/VBox/DetailPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 16
+
+[node name="VBox" type="VBoxContainer" parent="HandArea/VBox/DetailPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="CardName" type="Label" parent="HandArea/VBox/DetailPanel/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.909804, 0.909804, 0.909804, 1)
+theme_override_font_sizes/font_size = 18
+text = "专业课"
+
+[node name="CardInfo" type="Label" parent="HandArea/VBox/DetailPanel/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.533333, 0.564706, 0.643137, 1)
+theme_override_font_sizes/font_size = 14
+text = "大类：上课 | 消耗：2 AP · 1 精力"
+
+[node name="DetailContent" type="RichTextLabel" parent="HandArea/VBox/DetailPanel/MarginContainer/VBox"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/normal_font_size = 14
+bbcode_enabled = true
+text = "[color=#5a9e8f]学识+1[/color] · [color=#d4564a]精力-1[/color]"
+fit_content = true
+scroll_active = false
+
+[node name="LowEnergyWarning" type="Label" parent="HandArea/VBox/DetailPanel/MarginContainer/VBox"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.831373, 0.337255, 0.290196, 1)
+theme_override_font_sizes/font_size = 14
+text = "⚠ 当前精力较低，效果将减半"
+
+[node name="BottomSpacer" type="Control" parent="HandArea/VBox"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+

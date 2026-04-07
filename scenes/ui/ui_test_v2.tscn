@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://c8chpq7l76und"]
+
+[ext_resource type="PackedScene" path="res://scenes/ui/layers/today_view_v2.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/ui/layers/story_layer_v2.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/ui/layers/dice_layer_v2.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://scenes/ui/layers/phone_layer_v2.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://scenes/ui/layers/day_summary_layer_v2.tscn" id="5"]
+[ext_resource type="Script" uid="uid://cdsqi1g0inidp" path="res://scenes/ui/ui_test_v2.gd" id="6"]
+
+[node name="UITestScene" type="Control" unique_id=559984320]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6")
+
+[node name="TodayView" parent="." unique_id=2062857666 instance=ExtResource("1")]
+layout_mode = 1
+
+[node name="StoryLayer" parent="." unique_id=880503562 instance=ExtResource("2")]
+
+[node name="DiceLayer" parent="." unique_id=1742592871 instance=ExtResource("3")]
+
+[node name="PhoneLayer" parent="." unique_id=1720546701 instance=ExtResource("4")]
+
+[node name="DaySummaryLayer" parent="." unique_id=1528372239 instance=ExtResource("5")]
+
+[node name="TestControls" type="PanelContainer" parent="." unique_id=952324475]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -200.0
+offset_right = 320.0
+offset_bottom = -20.0
+grow_vertical = 0
+
+[node name="VBox" type="VBoxContainer" parent="TestControls" unique_id=2072662731]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="TestControls/VBox" unique_id=134042922]
+layout_mode = 2
+text = "UI 测试控制面板"
+horizontal_alignment = 1
+
+[node name="TestTodayBtn" type="Button" parent="TestControls/VBox" unique_id=1462443302]
+layout_mode = 2
+text = "测试 TodayView"
+
+[node name="TestStoryBtn" type="Button" parent="TestControls/VBox" unique_id=2107253189]
+layout_mode = 2
+text = "测试 StoryLayer"
+
+[node name="TestDiceBtn" type="Button" parent="TestControls/VBox" unique_id=209586439]
+layout_mode = 2
+text = "测试 DiceLayer"
+
+[node name="TestPhoneBtn" type="Button" parent="TestControls/VBox" unique_id=331219708]
+layout_mode = 2
+text = "测试 PhoneLayer"
+
+[node name="TestSummaryBtn" type="Button" parent="TestControls/VBox" unique_id=1957346946]
+layout_mode = 2
+text = "测试 DaySummaryLayer"

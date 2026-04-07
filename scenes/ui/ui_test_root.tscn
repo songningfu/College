@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/ui_test_root.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://scenes/ui/layers/today_view.tscn" id="2_today"]
+[ext_resource type="PackedScene" path="res://scenes/ui/layers/story_layer.tscn" id="3_story"]
+[ext_resource type="PackedScene" path="res://scenes/ui/layers/phone_layer.tscn" id="4_phone"]
+[ext_resource type="PackedScene" path="res://scenes/ui/layers/day_summary_layer.tscn" id="5_summary"]
+[ext_resource type="PackedScene" path="res://scenes/ui/layers/dice_layer.tscn" id="6_dice"]
+
+[node name="UITestRoot" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="TodayView" parent="." instance=ExtResource("2_today")]
+unique_name_in_owner = true
+
+[node name="StoryLayer" parent="." instance=ExtResource("3_story")]
+unique_name_in_owner = true
+
+[node name="DiceLayer" parent="." instance=ExtResource("6_dice")]
+unique_name_in_owner = true
+
+[node name="PhoneLayer" parent="." instance=ExtResource("4_phone")]
+unique_name_in_owner = true
+
+[node name="DaySummaryLayer" parent="." instance=ExtResource("5_summary")]
+unique_name_in_owner = true

@@ -1,0 +1,122 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/story_layer.gd" id="1_script"]
+
+[node name="StoryLayer" type="Control"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_script")
+
+[node name="Shade" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0784314, 0.0823529, 0.113725, 0.78)
+
+[node name="MainMargin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_left = 110.0
+offset_top = 60.0
+offset_right = -110.0
+offset_bottom = -60.0
+
+[node name="RootVBox" type="VBoxContainer" parent="MainMargin"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 18
+
+[node name="VisualPanel" type="PanelContainer" parent="MainMargin/RootVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+custom_minimum_size = Vector2(0, 420)
+
+[node name="VisualMargin" type="MarginContainer" parent="MainMargin/RootVBox/VisualPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VisualVBox" type="VBoxContainer" parent="MainMargin/RootVBox/VisualPanel/VisualMargin"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+theme_override_constants/separation = 16
+
+[node name="BackgroundNoteLabel" type="Label" parent="MainMargin/RootVBox/VisualPanel/VisualMargin/VisualVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+horizontal_alignment = 1
+autowrap_mode = 3
+text = "TODO: 事件背景图 / 镜头构图 / 昼夜光照变化"
+
+[node name="PortraitNoteLabel" type="Label" parent="MainMargin/RootVBox/VisualPanel/VisualMargin/VisualVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+horizontal_alignment = 1
+autowrap_mode = 3
+text = "TODO: 角色立绘 / 半身像 / 发言头像"
+
+[node name="TextPanel" type="PanelContainer" parent="MainMargin/RootVBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 320)
+
+[node name="TextMargin" type="MarginContainer" parent="MainMargin/RootVBox/TextPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 22
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 22
+theme_override_constants/margin_bottom = 20
+
+[node name="TextVBox" type="VBoxContainer" parent="MainMargin/RootVBox/TextPanel/TextMargin"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="TitleLabel" type="Label" parent="MainMargin/RootVBox/TextPanel/TextMargin/TextVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "事件标题"
+
+[node name="DescriptionLabel" type="RichTextLabel" parent="MainMargin/RootVBox/TextPanel/TextMargin/TextVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+fit_content = false
+scroll_active = true
+custom_minimum_size = Vector2(0, 120)
+text = "事件描述"
+
+[node name="ResultLabel" type="RichTextLabel" parent="MainMargin/RootVBox/TextPanel/TextMargin/TextVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+custom_minimum_size = Vector2(0, 72)
+text = ""
+
+[node name="ChoiceList" type="VBoxContainer" parent="MainMargin/RootVBox/TextPanel/TextMargin/TextVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="CloseButton" type="Button" parent="MainMargin/RootVBox/TextPanel/TextMargin/TextVBox"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = "返回日景层"

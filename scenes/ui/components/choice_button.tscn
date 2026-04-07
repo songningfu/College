@@ -1,0 +1,48 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/components/choice_button.gd" id="1_script"]
+
+[node name="ChoiceButton" type="Button"]
+custom_minimum_size = Vector2(560, 56)
+script = ExtResource("1_script")
+
+[node name="HBox" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+
+[node name="LeftMargin" type="Control" parent="HBox"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+
+[node name="ChoiceText" type="Label" parent="HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.909804, 0.909804, 0.909804, 1)
+theme_override_font_sizes/font_size = 16
+text = "选项文本"
+
+[node name="IconContainer" type="HBoxContainer" parent="HBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Icon" type="Label" parent="HBox/IconContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.533333, 0.564706, 0.643137, 0.6)
+theme_override_font_sizes/font_size = 16
+text = ""
+
+[node name="CostLabel" type="Label" parent="HBox/IconContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.831373, 0.337255, 0.290196, 1)
+theme_override_font_sizes/font_size = 14
+text = ""
+
+[node name="RightMargin" type="Control" parent="HBox"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+

@@ -1,0 +1,323 @@
+[gd_scene format=3 uid="uid://bccdwnnjtrhsa"]
+
+[ext_resource type="Script" uid="uid://cqfai5csovle8" path="res://scripts/ui/today_view.gd" id="1_script"]
+
+[node name="TodayView" type="Control" unique_id=2001769018]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1867484690]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.952941, 0.933333, 0.894118, 1)
+
+[node name="MainMargin" type="MarginContainer" parent="." unique_id=1946516756]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 34.0
+offset_top = 24.0
+offset_right = -34.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RootVBox" type="VBoxContainer" parent="MainMargin" unique_id=360027056]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="TopBar" type="PanelContainer" parent="MainMargin/RootVBox" unique_id=1033211450]
+custom_minimum_size = Vector2(0, 58)
+layout_mode = 2
+
+[node name="TopMargin" type="MarginContainer" parent="MainMargin/RootVBox/TopBar" unique_id=1389044357]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 8
+
+[node name="TopRow" type="HBoxContainer" parent="MainMargin/RootVBox/TopBar/TopMargin" unique_id=191519940]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="MoneyLabel" type="Label" parent="MainMargin/RootVBox/TopBar/TopMargin/TopRow" unique_id=533668072]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "生活费 200"
+
+[node name="MoodLabel" type="Label" parent="MainMargin/RootVBox/TopBar/TopMargin/TopRow" unique_id=615481882]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "心理 5"
+
+[node name="HealthLabel" type="Label" parent="MainMargin/RootVBox/TopBar/TopMargin/TopRow" unique_id=1043512229]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "健康 5"
+
+[node name="SocialLabel" type="Label" parent="MainMargin/RootVBox/TopBar/TopMargin/TopRow" unique_id=2122022327]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "社交 0"
+
+[node name="PhoneButton" type="Button" parent="MainMargin/RootVBox/TopBar/TopMargin/TopRow" unique_id=1616144705]
+unique_name_in_owner = true
+layout_mode = 2
+text = "手机"
+
+[node name="ComputerButton" type="Button" parent="MainMargin/RootVBox/TopBar/TopMargin/TopRow" unique_id=109768281]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
+text = "电脑"
+
+[node name="ScenePanel" type="PanelContainer" parent="MainMargin/RootVBox" unique_id=285141881]
+custom_minimum_size = Vector2(0, 250)
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.45
+
+[node name="SceneMargin" type="MarginContainer" parent="MainMargin/RootVBox/ScenePanel" unique_id=1236920609]
+layout_mode = 2
+theme_override_constants/margin_left = 26
+theme_override_constants/margin_top = 22
+theme_override_constants/margin_right = 26
+theme_override_constants/margin_bottom = 22
+
+[node name="SceneVBox" type="VBoxContainer" parent="MainMargin/RootVBox/ScenePanel/SceneMargin" unique_id=1429026319]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="SceneTitleLabel" type="Label" parent="MainMargin/RootVBox/ScenePanel/SceneMargin/SceneVBox" unique_id=1958933578]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Day 01 · 上午 / 校园日景"
+horizontal_alignment = 1
+
+[node name="ScenePlaceholderLabel" type="Label" parent="MainMargin/RootVBox/ScenePanel/SceneMargin/SceneVBox" unique_id=887258937]
+unique_name_in_owner = true
+layout_mode = 2
+text = "TODO: 校园主场景背景、角色站位、光影与天气变化"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="ActionHintLabel" type="Label" parent="MainMargin/RootVBox/ScenePanel/SceneMargin/SceneVBox" unique_id=49189729]
+unique_name_in_owner = true
+layout_mode = 2
+text = "从玩家一天的体验流开始测试。"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="PeriodPanel" type="PanelContainer" parent="MainMargin/RootVBox" unique_id=581048931]
+custom_minimum_size = Vector2(0, 104)
+layout_mode = 2
+
+[node name="PeriodMargin" type="MarginContainer" parent="MainMargin/RootVBox/PeriodPanel" unique_id=1011494649]
+layout_mode = 2
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 14
+theme_override_constants/margin_bottom = 10
+
+[node name="PeriodList" type="HBoxContainer" parent="MainMargin/RootVBox/PeriodPanel/PeriodMargin" unique_id=1539946147]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ActionExpandPanel" type="PanelContainer" parent="MainMargin/RootVBox" unique_id=1843320395]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 360)
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.2
+
+[node name="ActionMargin" type="MarginContainer" parent="MainMargin/RootVBox/ActionExpandPanel" unique_id=2019456983]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 14
+
+[node name="ActionVBox" type="VBoxContainer" parent="MainMargin/RootVBox/ActionExpandPanel/ActionMargin" unique_id=1178931688]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="ActionHeaderRow" type="HBoxContainer" parent="MainMargin/RootVBox/ActionExpandPanel/ActionMargin/ActionVBox" unique_id=1648803731]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="ActionHeaderLabel" type="Label" parent="MainMargin/RootVBox/ActionExpandPanel/ActionMargin/ActionVBox/ActionHeaderRow" unique_id=108441072]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "上午行动手牌"
+
+[node name="PeriodFocusLabel" type="Label" parent="MainMargin/RootVBox/ActionExpandPanel/ActionMargin/ActionVBox/ActionHeaderRow" unique_id=1147804916]
+unique_name_in_owner = true
+layout_mode = 2
+text = "当前时段：上午"
+
+[node name="CardSlotNoteLabel" type="Label" parent="MainMargin/RootVBox/ActionExpandPanel/ActionMargin/ActionVBox/ActionHeaderRow" unique_id=825149780]
+unique_name_in_owner = true
+layout_mode = 2
+text = "底部常驻手牌区"
+
+[node name="ConfirmButton" type="Button" parent="MainMargin/RootVBox/ActionExpandPanel/ActionMargin/ActionVBox/ActionHeaderRow" unique_id=1928775707]
+unique_name_in_owner = true
+layout_mode = 2
+text = "确认本时段行动"
+
+[node name="SlotRow" type="HBoxContainer" parent="MainMargin/RootVBox/ActionExpandPanel/ActionMargin/ActionVBox" unique_id=118867570]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="SlotOnePanel" type="PanelContainer" parent="MainMargin/RootVBox/ActionExpandPanel/ActionMargin/ActionVBox/SlotRow" unique_id=1818885086]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SlotOneMargin" type="MarginContainer" parent="MainMargin/RootVBox/ActionExpandPanel/ActionMargin/ActionVBox/SlotRow/SlotOnePanel" unique_id=723607759]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 8
+
+[node name="SlotOneLabel" type="Label" parent="MainMargin/RootVBox/ActionExpandPanel/ActionMargin/ActionVBox/SlotRow/SlotOnePanel/SlotOneMargin" unique_id=1086049761]
+unique_name_in_owner = true
+layout_mode = 2
+text = "卡槽 A：空位"
+vertical_alignment = 1
+
+[node name="SlotTwoPanel" type="PanelContainer" parent="MainMargin/RootVBox/ActionExpandPanel/ActionMargin/ActionVBox/SlotRow" unique_id=127374024]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SlotTwoMargin" type="MarginContainer" parent="MainMargin/RootVBox/ActionExpandPanel/ActionMargin/ActionVBox/SlotRow/SlotTwoPanel" unique_id=1489930366]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 8
+
+[node name="SlotTwoLabel" type="Label" parent="MainMargin/RootVBox/ActionExpandPanel/ActionMargin/ActionVBox/SlotRow/SlotTwoPanel/SlotTwoMargin" unique_id=1537425139]
+unique_name_in_owner = true
+layout_mode = 2
+text = "卡槽 B：待扩展"
+vertical_alignment = 1
+
+[node name="SelectionHintLabel" type="Label" parent="MainMargin/RootVBox/ActionExpandPanel/ActionMargin/ActionVBox" unique_id=531726359]
+unique_name_in_owner = true
+layout_mode = 2
+text = "先选一张卡进入卡槽，再确认执行。"
+autowrap_mode = 3
+
+[node name="HandArea" type="Control" parent="MainMargin/RootVBox/ActionExpandPanel/ActionMargin/ActionVBox" unique_id=849202910]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 270)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CardLane" type="Control" parent="MainMargin/RootVBox/ActionExpandPanel/ActionMargin/ActionVBox/HandArea" unique_id=1587243180]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="EmptyStateCenter" type="CenterContainer" parent="MainMargin/RootVBox/ActionExpandPanel/ActionMargin/ActionVBox/HandArea" unique_id=1903888690]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EmptyCardsLabel" type="Label" parent="MainMargin/RootVBox/ActionExpandPanel/ActionMargin/ActionVBox/HandArea/EmptyStateCenter" unique_id=2053119722]
+unique_name_in_owner = true
+layout_mode = 2
+text = "点击开始进入测试。"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="StartOverlay" type="Control" parent="." unique_id=1287273018]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="OverlayShade" type="ColorRect" parent="StartOverlay" unique_id=87995009]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.109804, 0.109804, 0.141176, 0.72)
+
+[node name="OverlayCenter" type="CenterContainer" parent="StartOverlay" unique_id=916149639]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="OverlayPanel" type="PanelContainer" parent="StartOverlay/OverlayCenter" unique_id=1409772958]
+custom_minimum_size = Vector2(560, 300)
+layout_mode = 2
+
+[node name="OverlayMargin" type="MarginContainer" parent="StartOverlay/OverlayCenter/OverlayPanel" unique_id=578016943]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="OverlayVBox" type="VBoxContainer" parent="StartOverlay/OverlayCenter/OverlayPanel/OverlayMargin" unique_id=2145861496]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="OverlayTitle" type="Label" parent="StartOverlay/OverlayCenter/OverlayPanel/OverlayMargin/OverlayVBox" unique_id=1810433498]
+layout_mode = 2
+text = "College UI 交互验证"
+horizontal_alignment = 1
+
+[node name="OverlayBody" type="Label" parent="StartOverlay/OverlayCenter/OverlayPanel/OverlayMargin/OverlayVBox" unique_id=1324657217]
+layout_mode = 2
+text = "验证日景层、横向行动卡带、事件演绎、独立骰子层、手机层与日结算层。
+TODO: 后续替换为真正标题页视觉。"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="StartButton" type="Button" parent="StartOverlay/OverlayCenter/OverlayPanel/OverlayMargin/OverlayVBox" unique_id=1331922819]
+unique_name_in_owner = true
+layout_mode = 2
+text = "开始 Demo 日流程"

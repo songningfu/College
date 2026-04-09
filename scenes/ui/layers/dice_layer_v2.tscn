@@ -66,10 +66,27 @@ theme_override_constants/separation = 40
 alignment = 1
 
 [node name="LeftDie" type="Panel" parent="DicePanel/VBox/DiceRow"]
-custom_minimum_size = Vector2(80, 80)
+custom_minimum_size = Vector2(132, 146)
 layout_mode = 2
 
+[node name="DieTexture" type="TextureRect" parent="DicePanel/VBox/DiceRow/LeftDie"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.0
+offset_top = -62.0
+offset_right = 56.0
+offset_bottom = 62.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
+
 [node name="DieVal" type="Label" parent="DicePanel/VBox/DiceRow/LeftDie"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -83,10 +100,27 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="RightDie" type="Panel" parent="DicePanel/VBox/DiceRow"]
-custom_minimum_size = Vector2(80, 80)
+custom_minimum_size = Vector2(132, 146)
 layout_mode = 2
 
+[node name="DieTexture" type="TextureRect" parent="DicePanel/VBox/DiceRow/RightDie"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.0
+offset_top = -62.0
+offset_right = 56.0
+offset_bottom = 62.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
+
 [node name="DieVal" type="Label" parent="DicePanel/VBox/DiceRow/RightDie"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

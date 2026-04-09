@@ -1,67 +1,67 @@
 [
   {
-    "id": "roommate_chat",
-    "display_name": "和舍友聊天",
-    "periods": ["morning", "afternoon", "evening"],
-    "action_point_cost": 1,
-    "effects": {
-      "社交": 1,
-      "心理": 1
-    },
-    "relationship_effects": {
-      "舍友": 3
-    },
-    "event_id": "roommate_first_impression"
+	"id": "roommate_chat",
+	"display_name": "和舍友聊天",
+	"periods": ["morning", "afternoon", "evening"],
+	"action_point_cost": 1,
+	"effects": {
+	  "社交": 1,
+	  "心理": 1
+	},
+	"relationship_effects": {
+	  "舍友": 3
+	},
+	"event_id": "roommate_first_impression"
   },
   {
-    "id": "attend_class",
-    "display_name": "去上课",
-    "periods": ["morning", "afternoon"],
-    "action_point_cost": 2,
-    "effects": {
-      "学力": 2,
-      "心理": -1
-    },
-    "event_id": "class_roll_call"
+	"id": "attend_class",
+	"display_name": "去上课",
+	"periods": ["morning", "afternoon"],
+	"action_point_cost": 2,
+	"effects": {
+	  "学力": 2,
+	  "心理": -1
+	},
+	"event_id": "class_roll_call"
   },
   {
-    "id": "club_intro",
-    "display_name": "参加社团宣讲",
-    "periods": ["afternoon", "evening"],
-    "min_day": 2,
-    "action_point_cost": 2,
-    "effects": {
-      "社交": 1
-    },
-    "relationship_effects": {
-      "顾遥": 2
-    },
-    "event_id": "meet_guyao"
+	"id": "club_intro",
+	"display_name": "参加社团宣讲",
+	"periods": ["afternoon", "evening"],
+	"min_day": 2,
+	"action_point_cost": 2,
+	"effects": {
+	  "社交": 1
+	},
+	"relationship_effects": {
+	  "顾遥": 2
+	},
+	"event_id": "meet_guyao"
   },
   {
-    "id": "dorm_rest",
-    "display_name": "宿舍休息",
-    "periods": ["evening"],
-    "action_point_cost": 1,
-    "effects": {
-      "健康": 1,
-      "心理": 1
-    }
+	"id": "dorm_rest",
+	"display_name": "宿舍休息",
+	"periods": ["evening"],
+	"action_point_cost": 1,
+	"effects": {
+	  "健康": 1,
+	  "心理": 1
+	}
   },
   {
-    "id": "night_market",
-    "display_name": "夜宵局",
-    "periods": ["evening"],
-    "min_day": 2,
-    "action_point_cost": 2,
-    "effects": {
-      "生活费": -20,
-      "社交": 1,
-      "心理": 1
-    },
-    "relationship_effects": {
-      "舍友": 2
-    },
-    "event_id": "night_market_invite"
+	"id": "night_market",
+	"display_name": "夜宵局",
+	"periods": ["evening"],
+	"min_day": 2,
+	"action_point_cost": 2,
+	"effects": {
+	  "生活费": -20,
+	  "社交": 1,
+	  "心理": 1
+	},
+	"relationship_effects": {
+	  "舍友": 2
+	},
+	"event_id": "night_market_invite"
   }
 ]

@@ -4,6 +4,7 @@ signal dialog_finished
 signal choice_selected(choice_index: int)
 
 @onready var background: Control = $Background
+@onready var char_area: Control = $CharArea
 @onready var scene_bg: ColorRect = $Background/SceneBg
 @onready var left_portrait: TextureRect = $CharArea/LeftChar/Portrait
 @onready var left_avatar: TextureRect = $CharArea/LeftChar/AvatarFallback/Avatar
@@ -23,6 +24,7 @@ signal choice_selected(choice_index: int)
 
 @onready var choice_box: VBoxContainer = $ChoiceBox
 @onready var transition_overlay: ColorRect = $TransitionOverlay
+@onready var full_screen_text: RichTextLabel = $FullScreenText
 
 const ChoiceButtonScene = preload("res://scenes/ui/components/choice_button.tscn")
 
@@ -32,13 +34,12 @@ var typing_timer: Timer
 var char_index: int = 0
 var full_text: String = ""
 var typing_speed: float = 0.04
+var is_fullscreen_mode: bool = false
 
 func _ready() -> void:
 	_setup_styles()
 	_setup_typing_timer()
-
-	dialog_box.gui_input.connect(_on_dialog_clicked)
-	narration_box.gui_input.connect(_on_dialog_clicked)
+	_setup_input_passthrough()
 
 	# 继续提示脉冲动画
 	var tween = create_tween()
@@ -81,21 +82,47 @@ func _setup_typing_timer() -> void:
 	typing_timer.timeout.connect(_on_typing_tick)
 	add_child(typing_timer)
 
+func _setup_input_passthrough() -> void:
+	_set_mouse_passthrough(background)
+	_set_mouse_passthrough(char_area)
+	transition_overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	full_screen_text.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	choice_box.mouse_filter = Control.MOUSE_FILTER_PASS
+	_set_mouse_passthrough(dialog_box, true)
+	_set_mouse_passthrough(narration_box, true)
+
+func _set_mouse_passthrough(control: Control, keep_root: bool = false) -> void:
+	if not keep_root:
+		control.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	for child in control.get_children():
+		if child is Control:
+			_set_mouse_passthrough(child as Control)
+
 func show_layer(fade_duration: float = 0.5) -> void:
 	visible = true
 	background.modulate.a = 0
 	dialog_box.modulate.a = 0
+	narration_box.modulate.a = 0
+	choice_box.modulate.a = 1.0
+	transition_overlay.color.a = 0.0
+	full_screen_text.modulate.a = 0.0
 	var tween = create_tween()
 	tween.set_parallel(true)
 	tween.tween_property(background, "modulate:a", 1.0, fade_duration)
 	tween.tween_property(dialog_box, "modulate:a", 1.0, fade_duration)
+	tween.tween_property(narration_box, "modulate:a", 1.0, fade_duration)
 
 func hide_layer(fade_duration: float = 0.5) -> void:
 	var tween = create_tween()
 	tween.set_parallel(true)
 	tween.tween_property(background, "modulate:a", 0.0, fade_duration)
 	tween.tween_property(dialog_box, "modulate:a", 0.0, fade_duration)
+	tween.tween_property(narration_box, "modulate:a", 0.0, fade_duration)
+	tween.tween_property(full_screen_text, "modulate:a", 0.0, fade_duration * 0.6)
+	tween.tween_property(transition_overlay, "color:a", 0.0, fade_duration * 0.6)
 	await tween.finished
+	full_screen_text.visible = false
+	transition_overlay.visible = false
 	visible = false
 
 func set_scene_background(color: Color) -> void:
@@ -130,8 +157,8 @@ func show_character(position: String, portrait_texture: Texture2D = null, avatar
 	# 入场动画
 	char_control.modulate.a = 0
 	var start_x = 320.0 if position == "left" else 1600.0
-	var offset = -100 if position == "left" else 100
-	char_control.position.x = start_x + offset
+	var slide_offset = -100 if position == "left" else 100
+	char_control.position.x = start_x + slide_offset
 
 	var tween = create_tween()
 	tween.set_parallel(true)
@@ -150,6 +177,9 @@ func set_character_speaking(position: String, speaking: bool) -> void:
 	tween.tween_property(char_control, "modulate:a", target_alpha, 0.2)
 
 func show_dialog(speaker: String, text: String, avatar_texture: Texture2D = null, is_player: bool = false) -> void:
+	is_fullscreen_mode = false
+	transition_overlay.visible = false
+	full_screen_text.visible = false
 	dialog_box.visible = true
 	narration_box.visible = false
 	choice_box.visible = false
@@ -179,6 +209,9 @@ func show_dialog(speaker: String, text: String, avatar_texture: Texture2D = null
 	continue_hint.visible = false
 
 func show_narration(text: String) -> void:
+	is_fullscreen_mode = false
+	transition_overlay.visible = false
+	full_screen_text.visible = false
 	dialog_box.visible = false
 	narration_box.visible = true
 	choice_box.visible = false
@@ -191,13 +224,36 @@ func show_narration(text: String) -> void:
 	narr_text.visible_characters = 0
 	typing_timer.start()
 
+	continue_hint.visible = false
+
+func show_fullscreen_text(text: String, overlay_alpha: float = 0.92) -> void:
+	is_fullscreen_mode = true
+	dialog_box.visible = false
+	narration_box.visible = false
+	choice_box.visible = false
+	transition_overlay.visible = true
+	full_screen_text.visible = true
+	transition_overlay.color = Color(0, 0, 0, overlay_alpha)
+	full_screen_text.modulate.a = 1.0
+	full_text = "[center]" + text + "[/center]"
+	char_index = 0
+	is_typing = true
+	full_screen_text.text = ""
+	full_screen_text.visible_characters = 0
+	typing_timer.start()
+
+	continue_hint.visible = false
+
 func _on_typing_tick() -> void:
 	if not is_typing:
 		return
 
 	char_index += 1
 
-	if dialog_box.visible:
+	if is_fullscreen_mode:
+		full_screen_text.text = full_text
+		full_screen_text.visible_characters = char_index
+	elif dialog_box.visible:
 		dialog_text.text = full_text
 		dialog_text.visible_characters = char_index
 	else:
@@ -211,22 +267,35 @@ func _finish_typing() -> void:
 	is_typing = false
 	typing_timer.stop()
 
-	if dialog_box.visible:
+	if is_fullscreen_mode:
+		full_screen_text.visible_characters = -1
+	elif dialog_box.visible:
 		dialog_text.visible_characters = -1
 	else:
 		narr_text.visible_characters = -1
 
 	continue_hint.visible = true
 
-func _on_dialog_clicked(event: InputEvent) -> void:
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			if is_typing:
-				# 立即显示全部文字
-				_finish_typing()
-			else:
-				# 继续下一句
-				dialog_finished.emit()
+func _input(event: InputEvent) -> void:
+	if not visible or choice_box.visible:
+		return
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		_accept_advance_input()
+		get_viewport().set_input_as_handled()
+	elif event is InputEventKey and event.pressed and not event.echo:
+		if event.keycode == KEY_SPACE or event.keycode == KEY_ENTER or event.keycode == KEY_KP_ENTER:
+			_accept_advance_input()
+			get_viewport().set_input_as_handled()
+
+func _accept_advance_input() -> void:
+	if is_typing:
+		_finish_typing()
+		return
+	if is_fullscreen_mode:
+		is_fullscreen_mode = false
+		transition_overlay.visible = false
+		full_screen_text.visible = false
+	dialog_finished.emit()
 
 func show_choices(choices: Array) -> void:
 	dialog_box.visible = false

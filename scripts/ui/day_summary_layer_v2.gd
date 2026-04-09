@@ -138,14 +138,14 @@ func _load_stats(stats: Dictionary) -> void:
 			var change = stats[res]
 			_add_stat_row(resource_names[res], change)
 
-func _add_stat_row(name: String, change: Dictionary) -> void:
+func _add_stat_row(label_text: String, change: Dictionary) -> void:
 	var row = HBoxContainer.new()
 	row.add_theme_constant_override("separation", 12)
 	stats_rows.add_child(row)
 
 	# 属性名
 	var name_label = Label.new()
-	name_label.text = name
+	name_label.text = label_text
 	name_label.custom_minimum_size = Vector2(60, 0)
 	name_label.add_theme_color_override("font_color", ThemeColors.TEXT_PRIMARY)
 	name_label.add_theme_font_size_override("font_size", 14)

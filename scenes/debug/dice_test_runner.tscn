@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene format=3 uid="uid://bshgls0ukpx60"]
 
 [ext_resource type="Script" path="res://scripts/debug/dice_test_runner.gd" id="1_script"]
 
-[node name="DiceTestRunner" type="Node"]
+[node name="DiceTestRunner" type="Node" unique_id=439870796]
 script = ExtResource("1_script")

@@ -78,7 +78,9 @@ func advance_day() -> void:
 
 
 func is_period_locked() -> bool:
-	return current_day in limited_days
+	if current_day in limited_days:
+		return true
+	return is_military_training_day() and current_period_index < 2
 
 
 func is_military_training_day() -> bool:

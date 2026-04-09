@@ -4,6 +4,19 @@ signal card_unlocked(card_id: StringName)
 signal hand_dealt(period: StringName, hand: Array)
 
 const HAND_SIZE: int = 5
+const DAY1_ONLY_CARD_IDS: Array[StringName] = [
+	&"check_in_registration",
+	&"familiarize_dorm_building",
+	&"complete_registration",
+	&"organize_belongings",
+	&"buy_daily_supplies",
+	&"dorm_chat_first_night",
+]
+const DAY1_PERIOD_POOL := {
+	&"morning": [&"check_in_registration", &"familiarize_dorm_building", &"explore_campus", &"canteen", &"dorm_rest"],
+	&"afternoon": [&"complete_registration", &"organize_belongings", &"buy_daily_supplies", &"explore_campus", &"canteen"],
+	&"evening": [&"dorm_chat_first_night", &"browse_phone", &"canteen", &"dorm_rest"],
+}
 
 class ActionCard extends RefCounted:
 	var id: StringName
@@ -65,6 +78,36 @@ func _init_cards() -> void:
 		[{"target": &"mood", "type": "resource", "delta": 1}],
 		{"type": "day", "value": 1}, &"any", true, false)
 
+	# === Day 1 专属卡 ===
+	_add_card(&"check_in_registration", "新生报到", &"life", 1, 1,
+		[{"target": &"insight", "type": "attribute", "delta": 1},
+		 {"target": &"mood", "type": "resource", "delta": 1}],
+		{"type": "day", "value": 1}, &"morning", false, false)
+
+	_add_card(&"familiarize_dorm_building", "熟悉宿舍楼", &"explore", 1, 1,
+		[{"target": &"insight", "type": "attribute", "delta": 1}],
+		{"type": "day", "value": 1}, &"morning", false, false)
+
+	_add_card(&"complete_registration", "补完报到", &"life", 1, 1,
+		[{"target": &"insight", "type": "attribute", "delta": 1},
+		 {"target": &"mood", "type": "resource", "delta": 1}],
+		{"type": "day", "value": 1}, &"afternoon", false, false)
+
+	_add_card(&"organize_belongings", "整理床位", &"life", 1, 1,
+		[{"target": &"insight", "type": "attribute", "delta": 1},
+		 {"target": &"chen_xiangxing", "type": "relation", "delta": 1}],
+		{"type": "day", "value": 1}, &"afternoon", false, false)
+
+	_add_card(&"buy_daily_supplies", "买生活用品", &"life", 1, 1,
+		[{"target": &"money", "type": "resource", "delta": -20},
+		 {"target": &"mood", "type": "resource", "delta": 2}],
+		{"type": "day", "value": 1}, &"afternoon", false, false)
+
+	_add_card(&"dorm_chat_first_night", "睡前闲聊", &"social", 1, 1,
+		[{"target": &"_fixed_roommate", "type": "relation", "delta": 2},
+		 {"target": &"mood", "type": "resource", "delta": 1}],
+		{"type": "day", "value": 1}, &"evening", false, false)
+
 	# === 课程卡（有课时段保底） ===
 	_add_card(&"attend_major_class", "上专业课", &"class", 2, 1,
 		[{"target": &"knowledge", "type": "attribute", "delta": 1}],
@@ -76,7 +119,7 @@ func _init_cards() -> void:
 
 	# === 随机池卡牌 ===
 	_add_card(&"dorm_chat", "宿舍闲聊", &"social", 1, 1,
-		[{"target": &"_random_roommate", "type": "relation", "delta": 2}],
+		[{"target": &"_fixed_roommate", "type": "relation", "delta": 2}],
 		{"type": "day", "value": 2}, &"any", false, false)
 
 	_add_card(&"chat_with", "找人聊天", &"social", 1, 1,
@@ -90,7 +133,7 @@ func _init_cards() -> void:
 
 	_add_card(&"play_games", "打游戏", &"fun", 1, 0,
 		[{"target": &"mood", "type": "resource", "delta": 2},
-		 {"target": &"zhou_chi", "type": "relation", "delta": 1}],
+		 {"target": &"zhou_wen", "type": "relation", "delta": 1}],
 		{"type": "day", "value": 3}, &"any", false, false)
 
 	_add_card(&"jogging", "跑步", &"exercise", 1, 2,
@@ -105,7 +148,7 @@ func _init_cards() -> void:
 		[{"target": &"insight", "type": "attribute", "delta": 1},
 		 {"target": &"eloquence", "type": "attribute", "delta": 1},
 		 {"target": &"gu_yao", "type": "relation", "delta": 2}],
-		{"type": "day", "value": 15}, &"any", true, false)  # 改为保底卡
+		{"type": "day", "value": 15}, &"any", true, false)
 
 	_add_card(&"explore_campus", "逛校园", &"explore", 1, 1,
 		[{"target": &"insight", "type": "attribute", "delta": 1},
@@ -121,7 +164,7 @@ func _init_cards() -> void:
 	_add_card(&"ktv", "KTV", &"nightlife", 2, 3,
 		[{"target": &"mood", "type": "resource", "delta": 3},
 		 {"target": &"money", "type": "resource", "delta": -50}],
-		{"type": "relation", "npc": &"lin_yifan", "value": 35}, &"evening", false, false)
+		{"type": "relation", "npc": &"lin_yifeng", "value": 35}, &"evening", false, false)
 
 	# === 军训期专属卡 ===
 	_add_card(&"night_jog", "操场夜跑", &"exercise", 1, 1,
@@ -141,19 +184,19 @@ func _init_cards() -> void:
 	# === 沈清禾隐性关联卡 ===
 	_add_card(&"linger_field", "在操场多待一会", &"exercise", 1, 1,
 		[{"target": &"physique", "type": "attribute", "delta": 1},
-		 {"target": &"shen_qinghe", "type": "relation", "delta": 2}],
+		 {"target": &"shen_yanqi", "type": "relation", "delta": 2}],
 		{"type": "day", "value": 5}, &"evening", false, false)
 
 	_add_card(&"read_class_chat", "翻看班群聊天记录", &"fun", 1, 0,
 		[{"target": &"mood", "type": "resource", "delta": 1},
-		 {"target": &"shen_qinghe", "type": "relation", "delta": 1}],
+		 {"target": &"shen_yanqi", "type": "relation", "delta": 1}],
 		{"type": "day", "value": 7}, &"evening", false, false)
 
 
 func _add_card(id: StringName, display_name: String, category: StringName,
 		ap_cost: int, energy_cost: int, effects: Array,
 		unlock_condition: Dictionary, period_restriction: StringName,
-		guaranteed: bool, is_class: bool) -> void:
+		guaranteed: bool, class_card: bool) -> void:
 	var card := ActionCard.new()
 	card.id = id
 	card.display_name = display_name
@@ -165,7 +208,7 @@ func _add_card(id: StringName, display_name: String, category: StringName,
 	card.unlock_condition = unlock_condition
 	card.period_restriction = period_restriction
 	card.is_guaranteed = guaranteed
-	card.is_class_card = is_class
+	card.is_class_card = class_card
 	all_cards[id] = card
 
 
@@ -208,6 +251,8 @@ func update_unlocks(current_day: int, rel_sys: Node) -> void:
 
 func deal_hand(period: StringName, current_day: int) -> Array:
 	current_hand.clear()
+	if current_day == 1 and DAY1_PERIOD_POOL.has(period):
+		return _deal_day1_hand(period)
 
 	# 第一步：常驻保底卡
 	var guaranteed: Array = []
@@ -241,6 +286,8 @@ func deal_hand(period: StringName, current_day: int) -> Array:
 			var card: ActionCard = all_cards[cid]
 			if not card.is_unlocked or card.is_guaranteed or card.is_class_card:
 				continue
+			if current_day > 1 and cid in DAY1_ONLY_CARD_IDS:
+				continue
 			if card.period_restriction != &"any" and card.period_restriction != period:
 				continue
 			if card in current_hand:
@@ -250,6 +297,15 @@ func deal_hand(period: StringName, current_day: int) -> Array:
 		for i: int in range(mini(remaining, pool.size())):
 			current_hand.append(pool[i])
 
+	hand_dealt.emit(period, current_hand)
+	return current_hand
+
+
+func _deal_day1_hand(period: StringName) -> Array:
+	var pool_ids: Array = DAY1_PERIOD_POOL[period]
+	for card_id: StringName in pool_ids:
+		if all_cards.has(card_id) and all_cards[card_id].is_unlocked:
+			current_hand.append(all_cards[card_id])
 	hand_dealt.emit(period, current_hand)
 	return current_hand
 

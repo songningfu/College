@@ -27,6 +27,7 @@ func _ready() -> void:
 	day_mgr.period_ready.connect(_on_period_ready)
 	day_mgr.execution_finished.connect(_on_execution_finished)
 	day_mgr.event_triggered.connect(_on_event_triggered)
+	day_mgr.event_choice_resolved.connect(_on_event_choice_resolved)
 	day_mgr.day_ended.connect(_on_day_ended)
 
 	_log("=== College 21天自动测试 ===")
@@ -69,10 +70,10 @@ func _start_test() -> void:
 	game_mgr.reset()
 
 	# 注册NPC
-	rel_sys.register_npc(&"zhou_chi", 15)
-	rel_sys.register_npc(&"lin_yifan", 15)
-	rel_sys.register_npc(&"ma_jun", 15)
-	rel_sys.register_npc(&"shen_qinghe", 15)
+	rel_sys.register_npc(&"lin_yifeng", 15)
+	rel_sys.register_npc(&"zhou_wen", 15)
+	rel_sys.register_npc(&"chen_xiangxing", 15)
+	rel_sys.register_npc(&"shen_yanqi", 15)
 	rel_sys.register_npc(&"gu_yao", 30)  # 修订2：初始30
 	rel_sys.register_npc(&"chen_wang", 10)
 
@@ -139,7 +140,7 @@ func _auto_play_card() -> void:
 	day_mgr.play_card(pick.id)
 
 
-func _on_execution_finished(card_id: StringName, results: Dictionary) -> void:
+func _on_execution_finished(_card_id: StringName, results: Dictionary) -> void:
 	if results.get("low_energy_penalty", false):
 		_log("    [低精力惩罚] 属性增益减半")
 
@@ -147,8 +148,8 @@ func _on_execution_finished(card_id: StringName, results: Dictionary) -> void:
 	for eff: Dictionary in effects:
 		var target_name: String = String(eff["target"])
 		var delta: int = eff["delta"]
-		var sign: String = "+" if delta > 0 else ""
-		_log("      %s %s%d" % [target_name, sign, delta])
+		var delta_sign: String = "+" if delta > 0 else ""
+		_log("      %s %s%d" % [target_name, delta_sign, delta])
 
 
 func _on_event_triggered(event) -> void:
@@ -157,6 +158,25 @@ func _on_event_triggered(event) -> void:
 		for npc_id: StringName in event.relation_effects:
 			var delta: int = event.relation_effects[npc_id]
 			_log("    %s 好感 %+d" % [String(npc_id), delta])
+	if auto_run:
+		await get_tree().create_timer(day_delay).timeout
+		if not event.choices.is_empty():
+			var pick_index: int = randi() % event.choices.size()
+			var choice_text: String = str(event.choices[pick_index].get("text", "继续"))
+			_log("    自动选择：%s" % choice_text)
+			day_mgr.resolve_event_choice(pick_index)
+		else:
+			day_mgr.continue_story_event()
+
+
+func _on_event_choice_resolved(_event, payload: Dictionary) -> void:
+	var result_text: String = str(payload.get("result_text", ""))
+	if not result_text.is_empty():
+		_log("    结果：%s" % result_text)
+	var next_event_id: StringName = StringName(payload.get("next_event", &""))
+	if next_event_id != &"":
+		await get_tree().create_timer(day_delay).timeout
+		day_mgr.continue_after_event_choice(next_event_id)
 
 
 func _on_day_ended(day: int, summary: Dictionary) -> void:

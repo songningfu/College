@@ -258,6 +258,7 @@ grow_vertical = 0
 theme_override_constants/separation = 12
 
 [node name="TransitionOverlay" type="ColorRect" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -265,3 +266,24 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0)
+
+[node name="FullScreenText" type="RichTextLabel" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 240.0
+offset_top = 220.0
+offset_right = -240.0
+offset_bottom = -220.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_font_sizes/normal_font_size = 28
+bbcode_enabled = true
+fit_content = false
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+text = "[center]全文旁白[/center]"

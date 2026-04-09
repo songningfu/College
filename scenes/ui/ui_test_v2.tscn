@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c8chpq7l76und"]
 
-[ext_resource type="PackedScene" path="res://scenes/ui/layers/today_view_v2.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://da2mkwqgmnbtv" path="res://scenes/ui/layers/today_view_v2.tscn" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/ui/layers/story_layer_v2.tscn" id="2"]
 [ext_resource type="PackedScene" path="res://scenes/ui/layers/dice_layer_v2.tscn" id="3"]
 [ext_resource type="PackedScene" path="res://scenes/ui/layers/phone_layer_v2.tscn" id="4"]
@@ -32,10 +32,10 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 20.0
-offset_top = -200.0
-offset_right = 320.0
-offset_bottom = -20.0
+offset_left = 1.0
+offset_top = -225.0
+offset_right = 267.0
+offset_bottom = -1.0
 grow_vertical = 0
 
 [node name="VBox" type="VBoxContainer" parent="TestControls" unique_id=2072662731]

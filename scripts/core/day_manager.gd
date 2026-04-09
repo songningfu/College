@@ -6,9 +6,15 @@ signal execution_started(card_id: StringName)
 signal execution_finished(card_id: StringName, results: Dictionary)
 signal event_triggered(event: RefCounted)
 signal day_ended(day: int, summary: Dictionary)
+signal event_choice_resolved(event: RefCounted, payload: Dictionary)
 
 var current_period_ap: int = 2
 var daily_changes: Dictionary = {}
+var active_event = null
+var pending_story_followup_event_id: StringName = &""
+var awaiting_story_advance: bool = false
+var pending_story_period_completion: bool = false
+var period_hand_dealt: bool = false
 
 var game_mgr: Node
 var attr_sys: Node
@@ -27,10 +33,20 @@ func _ready() -> void:
 
 func start_day() -> void:
 	var day: int = game_mgr.current_day
+	_reset_story_flow()
 	_reset_daily_tracking()
 	attr_sys.daily_restore()
 	card_sys.update_unlocks(day, rel_sys)
 	card_sys.clear_recommendations()
+
+	if day == 1:
+		# Day 1 报到引导
+		var morning_recs_day1: Array[StringName] = [&"check_in_registration"]
+		var afternoon_recs_day1: Array[StringName] = [&"complete_registration", &"organize_belongings"]
+		var evening_recs_day1: Array[StringName] = [&"dorm_chat_first_night"]
+		card_sys.set_recommendations(&"morning", morning_recs_day1)
+		card_sys.set_recommendations(&"afternoon", afternoon_recs_day1)
+		card_sys.set_recommendations(&"evening", evening_recs_day1)
 
 	# Day 2 教学推荐
 	if day == 2:
@@ -51,6 +67,8 @@ func start_day() -> void:
 func _start_period() -> void:
 	var period: StringName = game_mgr.get_current_period()
 	current_period_ap = 2
+	_reset_story_flow()
+	period_hand_dealt = false
 
 	# 检查顺延事件
 	event_sys.check_deferred_events(period)
@@ -60,7 +78,6 @@ func _start_period() -> void:
 		var top_event = period_events[0]
 		if top_event.priority >= 80:
 			_trigger_event(top_event)
-			_finish_period()
 			return
 
 	if game_mgr.is_period_locked():
@@ -69,10 +86,7 @@ func _start_period() -> void:
 		_finish_period()
 		return
 
-	# 发牌
-	game_mgr.set_phase(GameManager.Phase.SCHEDULING)
-	var hand: Array = card_sys.deal_hand(period, game_mgr.current_day)
-	period_ready.emit(period, hand)
+	_deal_period_hand(period)
 
 
 func play_card(card_id: StringName) -> void:
@@ -91,21 +105,14 @@ func play_card(card_id: StringName) -> void:
 	for event in period_events:
 		if event.priority < 80 and not event.is_consumed:
 			_trigger_event(event)
+			if awaiting_story_advance:
+				return
 			break
 
 	if current_period_ap <= 0:
 		_finish_period()
 	else:
-		# 时段内剩余行动点，从当前手牌中过滤可用卡
-		game_mgr.set_phase(GameManager.Phase.SCHEDULING)
-		var remaining_hand: Array = []
-		for c in card_sys.get_hand():
-			if c.action_point_cost <= current_period_ap:
-				remaining_hand.append(c)
-		if remaining_hand.is_empty():
-			_finish_period()
-		else:
-			period_ready.emit(period, remaining_hand)
+		_resume_scheduling_after_event()
 
 
 func _apply_card_effects(card, low_energy_penalty: bool) -> Dictionary:
@@ -133,8 +140,8 @@ func _apply_card_effects(card, low_energy_penalty: bool) -> Dictionary:
 				_track_change("resources", target, delta)
 				results["effects"].append({"type": "resource", "target": target, "delta": delta})
 			"relation":
-				if target == &"_random_roommate":
-					var roommates: Array[StringName] = [&"zhou_chi", &"lin_yifan", &"ma_jun"]
+				if target == &"_fixed_roommate":
+					var roommates: Array[StringName] = [&"lin_yifeng", &"zhou_wen", &"chen_xiangxing", &"shen_yanqi"]
 					target = roommates[randi() % roommates.size()]
 				elif target == &"_selected_npc":
 					# 简化：随机选一个已注册NPC
@@ -150,41 +157,164 @@ func _apply_card_effects(card, low_energy_penalty: bool) -> Dictionary:
 	return results
 
 
+func resolve_event_choice(choice_index: int) -> Dictionary:
+	if active_event == null:
+		return {}
+	if choice_index < 0 or choice_index >= active_event.choices.size():
+		return {}
+
+	var event = active_event
+	var choice: Dictionary = event.choices[choice_index]
+	_apply_relation_effects(choice.get("relation_effects", {}))
+	_apply_attribute_effects(choice.get("attribute_effects", {}))
+	_apply_resource_effects(choice.get("resource_effects", {}))
+
+	var payload: Dictionary = {
+		"event_id": event.id,
+		"choice_index": choice_index,
+		"result_text": str(choice.get("result_text", choice.get("text", "你做出了选择。"))),
+		"next_event": StringName(choice.get("next_event", &"")),
+		"next_event_available": false,
+		"period_finished": false
+	}
+
+	active_event = null
+	awaiting_story_advance = true
+	pending_story_period_completion = false
+	pending_story_followup_event_id = payload["next_event"]
+	if payload["next_event"] != &"":
+		var next_event = event_sys.get_event(payload["next_event"])
+		if next_event != null and not next_event.is_consumed:
+			payload["next_event_available"] = true
+			payload["next_event_data"] = next_event
+	else:
+		payload["period_finished"] = _should_finish_period_after_event(event)
+
+	event_choice_resolved.emit(event, payload)
+	return payload
+
+
+func continue_after_event_choice(next_event_id: StringName) -> void:
+	if next_event_id == &"":
+		_finish_period()
+		return
+	var next_event = event_sys.get_event(next_event_id)
+	if next_event == null or next_event.is_consumed:
+		_finish_period()
+		return
+	_trigger_event(next_event)
+
+
+func continue_story_event() -> void:
+	if active_event != null:
+		return
+	if not awaiting_story_advance:
+		return
+
+	awaiting_story_advance = false
+	if pending_story_followup_event_id != &"":
+		var next_event_id := pending_story_followup_event_id
+		pending_story_followup_event_id = &""
+		continue_after_event_choice(next_event_id)
+		return
+
+	if pending_story_period_completion:
+		pending_story_period_completion = false
+		_finish_period()
+		return
+
+	_resume_scheduling_after_event()
+
+func _resume_scheduling_after_event() -> void:
+	var period: StringName = game_mgr.get_current_period()
+	if not period_hand_dealt:
+		_deal_period_hand(period)
+		return
+
+	var remaining_hand: Array = []
+	for c in card_sys.get_hand():
+		if c.action_point_cost <= current_period_ap:
+			remaining_hand.append(c)
+
+	if remaining_hand.is_empty():
+		_finish_period()
+		return
+
+	game_mgr.set_phase(GameManager.Phase.SCHEDULING)
+	period_ready.emit(period, remaining_hand)
+
+
+func _deal_period_hand(period: StringName) -> void:
+	if period_hand_dealt:
+		_resume_scheduling_after_event()
+		return
+	period_hand_dealt = true
+	game_mgr.set_phase(GameManager.Phase.SCHEDULING)
+	var hand: Array = card_sys.deal_hand(period, game_mgr.current_day)
+	period_ready.emit(period, hand)
+
+
+func _apply_relation_effects(effects: Dictionary) -> void:
+	for npc_id: StringName in effects:
+		var delta: int = effects[npc_id]
+		if npc_id in rel_sys.relations:
+			rel_sys.modify_relation(npc_id, delta)
+			_track_change("relations", npc_id, delta)
+
+
+func _apply_attribute_effects(effects: Dictionary) -> void:
+	for attr_id: StringName in effects:
+		var delta: int = effects[attr_id]
+		attr_sys.modify_attribute(attr_id, delta)
+		_track_change("attributes", attr_id, delta)
+
+
+func _apply_resource_effects(effects: Dictionary) -> void:
+	for res_id: StringName in effects:
+		var delta: int = effects[res_id]
+		attr_sys.modify_resource(res_id, delta)
+		_track_change("resources", res_id, delta)
+
+
+func _should_finish_period_after_event(event) -> bool:
+	if event != null and bool(event.keep_period_open):
+		return false
+	return event.priority >= 80
+
+
+func _trigger_event(event) -> void:
+	active_event = event if event.choices.size() > 0 else null
+	awaiting_story_advance = true
+	pending_story_followup_event_id = event.next_event if event.choices.is_empty() else &""
+	pending_story_period_completion = event.choices.is_empty() and event.next_event == &"" and _should_finish_period_after_event(event)
+	game_mgr.set_phase(GameManager.Phase.EVENT)
+	event_triggered.emit(event)
+	_apply_relation_effects(event.relation_effects)
+	_apply_attribute_effects(event.attribute_effects)
+	_apply_resource_effects(event.resource_effects)
+	event_sys.consume_event(event)
+
+
 func _execute_military_training() -> void:
 	attr_sys.modify_resource(&"energy", -4)
 	attr_sys.modify_attribute(&"physique", 1)
 	_track_change("attributes", &"physique", 1)
-	var classmates: Array[StringName] = [&"shen_qinghe"]
+	var classmates: Array[StringName] = [&"shen_yanqi"]
 	for npc: StringName in classmates:
 		if npc in rel_sys.relations:
 			rel_sys.modify_relation(npc, 1)
 			_track_change("relations", npc, 1)
 
 
-func _trigger_event(event) -> void:
-	game_mgr.set_phase(GameManager.Phase.EVENT)
-	event_triggered.emit(event)
-
-	# 应用事件效果
-	for npc_id: StringName in event.relation_effects:
-		var delta: int = event.relation_effects[npc_id]
-		rel_sys.modify_relation(npc_id, delta)
-		_track_change("relations", npc_id, delta)
-
-	for attr_id: StringName in event.attribute_effects:
-		var delta: int = event.attribute_effects[attr_id]
-		attr_sys.modify_attribute(attr_id, delta)
-		_track_change("attributes", attr_id, delta)
-
-	for res_id: StringName in event.resource_effects:
-		var delta: int = event.resource_effects[res_id]
-		attr_sys.modify_resource(res_id, delta)
-		_track_change("resources", res_id, delta)
-
-	event_sys.consume_event(event)
+func _reset_story_flow() -> void:
+	active_event = null
+	pending_story_followup_event_id = &""
+	awaiting_story_advance = false
+	pending_story_period_completion = false
 
 
 func _finish_period() -> void:
+	_reset_story_flow()
 	if game_mgr.advance_period():
 		_start_period()
 	else:

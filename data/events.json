@@ -1,75 +1,75 @@
 {
   "roommate_first_impression": {
-    "display_name": "舍友接话",
-    "description": "聊着聊着，舍友突然把话题抛给你，想看看你是个什么样的人。",
-    "choices": [
-      {
-        "text": "顺着话题多聊两句",
-        "effects": {"社交": 1},
-        "relationship_effects": {"舍友": 4},
-        "result_text": "你接住了话头，宿舍气氛明显松下来。"
-      },
-      {
-        "text": "笑一笑，先少说点",
-        "effects": {"心理": 1},
-        "relationship_effects": {"舍友": 1},
-        "result_text": "你没有把自己完全打开，但至少没让场子冷掉。"
-      }
-    ]
+	"display_name": "舍友接话",
+	"description": "聊着聊着，舍友突然把话题抛给你，想看看你是个什么样的人。",
+	"choices": [
+	  {
+		"text": "顺着话题多聊两句",
+		"effects": {"社交": 1},
+		"relationship_effects": {"舍友": 4},
+		"result_text": "你接住了话头，宿舍气氛明显松下来。"
+	  },
+	  {
+		"text": "笑一笑，先少说点",
+		"effects": {"心理": 1},
+		"relationship_effects": {"舍友": 1},
+		"result_text": "你没有把自己完全打开，但至少没让场子冷掉。"
+	  }
+	]
   },
   "class_roll_call": {
-    "display_name": "课堂点名",
-    "description": "老师突然点你回答问题。你其实没完全准备好。",
-    "choices": [
-      {
-        "text": "硬着头皮回答",
-        "roll_stat": "学力",
-        "threshold": 8,
-        "success_effects": {"学力": 2},
-        "failure_effects": {"心理": -1},
-        "success_text": "你答得不算惊艳，但至少把场子接住了。",
-        "failure_text": "你勉强说了几句，声音越到后面越虚。"
-      },
-      {
-        "text": "坦白说自己还没想好",
-        "effects": {"心理": 1},
-        "result_text": "你保住了体面，但也错过了一次被看见的机会。"
-      }
-    ]
+	"display_name": "课堂点名",
+	"description": "老师突然点你回答问题。你其实没完全准备好。",
+	"choices": [
+	  {
+		"text": "硬着头皮回答",
+		"roll_stat": "学力",
+		"threshold": 8,
+		"success_effects": {"学力": 2},
+		"failure_effects": {"心理": -1},
+		"success_text": "你答得不算惊艳，但至少把场子接住了。",
+		"failure_text": "你勉强说了几句，声音越到后面越虚。"
+	  },
+	  {
+		"text": "坦白说自己还没想好",
+		"effects": {"心理": 1},
+		"result_text": "你保住了体面，但也错过了一次被看见的机会。"
+	  }
+	]
   },
   "meet_guyao": {
-    "display_name": "社团宣讲后的搭话",
-    "description": "散场时，顾遥正低头整理报名表。你意识到这是一次难得的主动靠近机会。",
-    "choices": [
-      {
-        "text": "主动上前搭话",
-        "effects": {"社交": 1, "心理": -1},
-        "relationship_effects": {"顾遥": 6},
-        "result_text": "你鼓起勇气开了口，顾遥没有让这份紧张掉在地上。"
-      },
-      {
-        "text": "先记住她，等下次再说",
-        "effects": {"心理": 1},
-        "relationship_effects": {"顾遥": 2},
-        "result_text": "你把这次心动藏了起来，但她已经在你的记忆里留下位置。"
-      }
-    ]
+	"display_name": "社团宣讲后的搭话",
+	"description": "散场时，顾遥正低头整理报名表。你意识到这是一次难得的主动靠近机会。",
+	"choices": [
+	  {
+		"text": "主动上前搭话",
+		"effects": {"社交": 1, "心理": -1},
+		"relationship_effects": {"顾遥": 6},
+		"result_text": "你鼓起勇气开了口，顾遥没有让这份紧张掉在地上。"
+	  },
+	  {
+		"text": "先记住她，等下次再说",
+		"effects": {"心理": 1},
+		"relationship_effects": {"顾遥": 2},
+		"result_text": "你把这次心动藏了起来，但她已经在你的记忆里留下位置。"
+	  }
+	]
   },
   "night_market_invite": {
-    "display_name": "深夜夜宵邀请",
-    "description": "舍友喊你一起去夜宵摊，气氛正热，你知道这会推高关系也会花掉一点生活费。",
-    "choices": [
-      {
-        "text": "一起去，再聊一会儿",
-        "effects": {"心理": 1},
-        "relationship_effects": {"舍友": 3},
-        "result_text": "你跟着出了门，夜风和闲聊把这一天收得很像大学。"
-      },
-      {
-        "text": "今天算了，早点回去休息",
-        "effects": {"健康": 1},
-        "result_text": "你没加入热闹，但给自己留了点恢复空间。"
-      }
-    ]
+	"display_name": "深夜夜宵邀请",
+	"description": "舍友喊你一起去夜宵摊，气氛正热，你知道这会推高关系也会花掉一点生活费。",
+	"choices": [
+	  {
+		"text": "一起去，再聊一会儿",
+		"effects": {"心理": 1},
+		"relationship_effects": {"舍友": 3},
+		"result_text": "你跟着出了门，夜风和闲聊把这一天收得很像大学。"
+	  },
+	  {
+		"text": "今天算了，早点回去休息",
+		"effects": {"健康": 1},
+		"result_text": "你没加入热闹，但给自己留了点恢复空间。"
+	  }
+	]
   }
 }

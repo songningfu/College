@@ -74,7 +74,7 @@ func setup(data: Dictionary) -> void:
 	card_id = str(data.get("id", ""))
 
 	var category = str(data.get("category", "rest"))
-	var cat_color = ThemeColors.get_category_color(category)
+	var cat_color = ThemeColors.get_category_color.call(category)
 	category_bg.color = cat_color
 
 	# 类别图标和名称

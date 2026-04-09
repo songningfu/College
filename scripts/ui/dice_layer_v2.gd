@@ -1,5 +1,15 @@
 extends CanvasLayer
 
+const DIE_TEXTURES := {
+	0: null,
+	1: preload("res://素材/骰子/骰子排列_1_283x313.png"),
+	2: preload("res://素材/骰子/骰子排列_2_283x313.png"),
+	3: preload("res://素材/骰子/骰子排列_3_283x313.png"),
+	4: preload("res://素材/骰子/骰子排列_4_283x313.png"),
+	5: preload("res://素材/骰子/骰子排列_5_283x313.png"),
+	6: preload("res://素材/骰子/骰子排列_6_283x313.png"),
+}
+
 signal dice_finished
 
 @onready var dim_overlay: ColorRect = $DimOverlay
@@ -7,8 +17,10 @@ signal dice_finished
 @onready var event_title: Label = $DicePanel/VBox/Header/EventTitle
 @onready var attr_label: Label = $DicePanel/VBox/Header/AttrLabel
 @onready var left_die: Panel = $DicePanel/VBox/DiceRow/LeftDie
+@onready var left_die_texture: TextureRect = $DicePanel/VBox/DiceRow/LeftDie/DieTexture
 @onready var left_val: Label = $DicePanel/VBox/DiceRow/LeftDie/DieVal
 @onready var right_die: Panel = $DicePanel/VBox/DiceRow/RightDie
+@onready var right_die_texture: TextureRect = $DicePanel/VBox/DiceRow/RightDie/DieTexture
 @onready var right_val: Label = $DicePanel/VBox/DiceRow/RightDie/DieVal
 @onready var modifier_text: Label = $DicePanel/VBox/ModifierText
 @onready var roll_btn: Button = $DicePanel/VBox/RollBtn
@@ -26,6 +38,8 @@ var roll_result: Dictionary = {}
 
 func _ready() -> void:
 	_setup_styles()
+	left_val.visible = false
+	right_val.visible = false
 	roll_btn.pressed.connect(_on_roll_pressed)
 	continue_btn.pressed.connect(_on_continue_pressed)
 
@@ -96,8 +110,8 @@ func show_layer(data: Dictionary) -> void:
 	attr_label.text = "判定属性：%s" % str(data.get("attribute", "未知"))
 	modifier_text.text = str(data.get("modifier_description", ""))
 
-	left_val.text = "?"
-	right_val.text = "?"
+	_set_die_face(left_die_texture, 0)
+	_set_die_face(right_die_texture, 0)
 	roll_btn.visible = true
 	calc_label.visible = false
 	divider.visible = false
@@ -122,37 +136,34 @@ func _start_rolling() -> void:
 	var roll_timer = Timer.new()
 	add_child(roll_timer)
 	roll_timer.wait_time = 0.05
+	roll_timer.one_shot = false
 	roll_timer.timeout.connect(_on_roll_tick)
-
-	var roll_count = 0
-	var max_rolls = 16  # 800ms / 50ms
-
-	roll_timer.timeout.connect(func():
-		roll_count += 1
-		left_val.text = str(randi_range(1, 6))
-		right_val.text = str(randi_range(1, 6))
-
-		# 抖动动画
-		left_die.position.y = randf_range(-4, 4)
-		left_die.rotation_degrees = randf_range(-3, 3)
-		right_die.position.y = randf_range(-4, 4)
-		right_die.rotation_degrees = randf_range(-3, 3)
-
-		# 边框变色
-		var die_style = left_die.get_theme_stylebox("panel").duplicate() as StyleBoxFlat
-		die_style.border_color = Color(ThemeColors.ACCENT, 0.4)
-		left_die.add_theme_stylebox_override("panel", die_style)
-		right_die.add_theme_stylebox_override("panel", die_style.duplicate())
-
-		if roll_count >= max_rolls:
-			roll_timer.stop()
-			_finish_rolling()
-	)
-
 	roll_timer.start()
 
 func _on_roll_tick() -> void:
-	pass  # 由闭包处理
+	var roll_timer := get_child(get_child_count() - 1) as Timer
+	var tick_count := int(roll_timer.get_meta("tick_count", 0)) + 1
+	roll_timer.set_meta("tick_count", tick_count)
+	var max_rolls := 16
+	var rolling_left := randi_range(1, 6)
+	var rolling_right := randi_range(1, 6)
+	_set_die_face(left_die_texture, rolling_left)
+	_set_die_face(right_die_texture, rolling_right)
+
+	left_die.position.y = randf_range(-4, 4)
+	left_die.rotation_degrees = randf_range(-3, 3)
+	right_die.position.y = randf_range(-4, 4)
+	right_die.rotation_degrees = randf_range(-3, 3)
+
+	var die_style = left_die.get_theme_stylebox("panel").duplicate() as StyleBoxFlat
+	die_style.border_color = Color(ThemeColors.ACCENT, 0.4)
+	left_die.add_theme_stylebox_override("panel", die_style)
+	right_die.add_theme_stylebox_override("panel", die_style.duplicate())
+
+	if tick_count >= max_rolls:
+		roll_timer.stop()
+		roll_timer.queue_free()
+		_finish_rolling()
 
 func _finish_rolling() -> void:
 	# 生成最终结果
@@ -170,11 +181,11 @@ func _finish_rolling() -> void:
 
 	# 左骰定格
 	await get_tree().create_timer(0.1).timeout
-	_settle_die(left_die, left_val, die1)
+	_settle_die(left_die, left_die_texture, die1)
 
 	# 右骰定格
 	await get_tree().create_timer(0.2).timeout
-	_settle_die(right_die, right_val, die2)
+	_settle_die(right_die, right_die_texture, die2)
 
 	# 面板震动
 	var shake_tween = create_tween()
@@ -185,8 +196,8 @@ func _finish_rolling() -> void:
 	await get_tree().create_timer(0.4).timeout
 	_show_result()
 
-func _settle_die(die: Panel, val_label: Label, value: int) -> void:
-	val_label.text = str(value)
+func _settle_die(die: Panel, die_texture: TextureRect, value: int) -> void:
+	_set_die_face(die_texture, value)
 
 	# 弹跳动画
 	var tween = create_tween()
@@ -203,6 +214,9 @@ func _settle_die(die: Panel, val_label: Label, value: int) -> void:
 
 	var fade_tween = create_tween()
 	fade_tween.tween_property(flash_style, "border_color", Color(1, 1, 1, 0.12), 0.15)
+
+func _set_die_face(die_texture: TextureRect, value: int) -> void:
+	die_texture.texture = DIE_TEXTURES.get(value, null)
 
 func _show_result() -> void:
 	# 扩展面板

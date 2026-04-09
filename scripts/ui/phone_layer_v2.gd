@@ -3,6 +3,7 @@ extends CanvasLayer
 signal phone_closed
 signal message_sent(npc_id: String, choice_index: int)
 
+@onready var dim_overlay: ColorRect = $DimOverlay
 @onready var phone_frame: PanelContainer = $PhoneFrame
 @onready var close_btn: Button = $PhoneFrame/VBox/Screen/ListView/VBox/ListTitle/HBox/CloseBtn
 @onready var contacts_container: VBoxContainer = $PhoneFrame/VBox/Screen/ListView/VBox/Scroll/Contacts
@@ -19,6 +20,17 @@ func _ready() -> void:
 	_setup_styles()
 	close_btn.pressed.connect(_on_close_pressed)
 	back_btn.pressed.connect(_on_back_pressed)
+	dim_overlay.gui_input.connect(_on_dim_overlay_gui_input)
+
+func _input(event: InputEvent) -> void:
+	if not visible:
+		return
+	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_ESCAPE:
+		if chat_view.visible:
+			_on_back_pressed()
+		else:
+			_on_close_pressed()
+		get_viewport().set_input_as_handled()
 
 func _setup_styles() -> void:
 	# 手机壳样式
@@ -55,15 +67,35 @@ func hide_layer() -> void:
 
 func load_contacts(contacts: Array) -> void:
 	contacts_data = contacts
+	list_view.visible = true
+	chat_view.visible = false
+	current_chat_npc = ""
+	_rebuild_contact_list()
 
-	# 清除旧联系人
+func apply_reply_result(npc_id: String, reply_text: String, npc_reply: String, preview_text: String, time_text: String) -> void:
+	for i in range(contacts_data.size()):
+		var contact: Dictionary = contacts_data[i]
+		if str(contact.get("npc_id", "")) != npc_id:
+			continue
+		var messages: Array = contact.get("messages", []).duplicate(true)
+		messages.append({"text": reply_text, "is_player": true})
+		messages.append({"text": npc_reply, "is_player": false})
+		contact["messages"] = messages
+		contact["reply_options"] = []
+		contact["has_unread"] = false
+		contact["preview"] = preview_text
+		contact["time"] = time_text
+		contacts_data[i] = contact
+		_rebuild_contact_list()
+		if current_chat_npc == npc_id and chat_view.visible:
+			_open_chat(npc_id)
+		break
+
+func _rebuild_contact_list() -> void:
 	for child in contacts_container.get_children():
 		child.queue_free()
-
-	# 创建联系人行
-	for contact in contacts:
-		var contact_row = _create_contact_row(contact)
-		contacts_container.add_child(contact_row)
+	for contact in contacts_data:
+		contacts_container.add_child(_create_contact_row(contact))
 
 func _create_contact_row(contact: Dictionary) -> Panel:
 	var row = Panel.new()
@@ -147,7 +179,7 @@ func _create_contact_row(contact: Dictionary) -> Panel:
 	var button = Button.new()
 	button.set_anchors_preset(Control.PRESET_FULL_RECT)
 	button.flat = true
-	button.pressed.connect(func(): _open_chat(contact.get("npc_id", "")))
+	button.pressed.connect(func(): _open_chat(str(contact.get("npc_id", ""))))
 	row.add_child(button)
 
 	return row
@@ -281,10 +313,6 @@ func _create_reply_button(text: String, index: int) -> Button:
 
 	btn.pressed.connect(func(): _on_reply_selected(index))
 
-	var margin = MarginContainer.new()
-	margin.add_theme_constant_override("margin_right", 16)
-	chat_content.add_child(margin)
-
 	return btn
 
 func _on_reply_selected(index: int) -> void:
@@ -308,3 +336,8 @@ func _on_back_pressed() -> void:
 func _on_close_pressed() -> void:
 	phone_closed.emit()
 	hide_layer()
+
+func _on_dim_overlay_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		_on_close_pressed()
+		get_viewport().set_input_as_handled()

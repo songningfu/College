@@ -1,8 +1,98 @@
 [gd_scene format=3 uid="uid://da2mkwqgmnbtv"]
 
-[ext_resource type="Script" path="res://scripts/ui/today_view_v2.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://srmmssurwjvc" path="res://scripts/ui/today_view_v2.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://d0pp484k83ehr" path="res://素材/UI图标/精力.png" id="2_6klma"]
+[ext_resource type="Texture2D" uid="uid://1xxq8axqg4st" path="res://素材/UI图标/学识.png" id="3_a5xvv"]
+[ext_resource type="Texture2D" uid="uid://01spqdv21isc" path="res://素材/UI图标/手机.png" id="3_phone"]
+[ext_resource type="Texture2D" uid="uid://c4ahb2l1v10rv" path="res://素材/UI图标/口才.png" id="4_kd00h"]
+[ext_resource type="Texture2D" uid="uid://dutjftpgn0ywh" path="res://素材/UI图标/手机（高亮）.png" id="4_phone_highlight"]
+[ext_resource type="Texture2D" uid="uid://0ushomsplpw4" path="res://素材/UI图标/体魄.png" id="5_3jhtt"]
+[ext_resource type="Texture2D" uid="uid://bv04bopvkx7ee" path="res://素材/UI图标/电脑.png" id="5_computer"]
+[ext_resource type="Texture2D" uid="uid://bjotfrnhcrr0s" path="res://素材/UI图标/见识.png" id="6_uua6l"]
 
-[node name="TodayView" type="Control"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kd00h"]
+bg_color = Color(0.07450981, 0.09411765, 0.14509805, 0.95)
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 0.08)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3jhtt"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.1254902, 0.15294118, 0.22352941, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.6627451, 0.7882353, 0.85490197, 0.3)
+corner_radius_top_left = 9
+corner_radius_top_right = 9
+corner_radius_bottom_right = 9
+corner_radius_bottom_left = 9
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uua6l"]
+bg_color = Color(0.9529412, 0.76862746, 0.37254903, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1eknn"]
+load_path = "res://.godot/imported/心情.png-dae6b382e3fa4f1246f907786f4cf80a.ctex"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r1gg0"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.1254902, 0.15294118, 0.22352941, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.6627451, 0.7882353, 0.85490197, 0.3)
+corner_radius_top_left = 9
+corner_radius_top_right = 9
+corner_radius_bottom_right = 9
+corner_radius_bottom_left = 9
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q6e1w"]
+bg_color = Color(1, 0.6117647, 0.47058824, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_22uqf"]
+load_path = "res://.godot/imported/生活费（调整后）.png-e9a9df489f2cbb5116c682c134db600a.ctex"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1e76w"]
+bg_color = Color(0.07450981, 0.09411765, 0.14509805, 1)
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 0.06)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dmaht"]
+bg_color = Color(0.13725491, 0.16078432, 0.2509804, 0.9)
+border_width_top = 1
+border_color = Color(1, 1, 1, 0.1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l6e83"]
+bg_color = Color(0.33333334, 0.35686275, 0.43137255, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s5kcl"]
+bg_color = Color(0.1764706, 0.20392157, 0.3137255, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="TodayView" type="Control" unique_id=102988124]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,7 +101,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_script")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=1526450803]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,166 +110,451 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.101961, 0.121569, 0.180392, 1)
 
-[node name="StatusBar" type="PanelContainer" parent="."]
+[node name="StatusBar" type="PanelContainer" parent="." unique_id=1570696253]
+z_index = 1
 custom_minimum_size = Vector2(1920, 48)
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 48.0
 grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kd00h")
 
-[node name="HBox" type="HBoxContainer" parent="StatusBar"]
-layout_mode = 2
-theme_override_constants/separation = 32
-
-[node name="LeftSpacer" type="Control" parent="StatusBar/HBox"]
-custom_minimum_size = Vector2(40, 0)
+[node name="ModuleCanvas" type="Control" parent="StatusBar" unique_id=881648504]
 layout_mode = 2
 
-[node name="ResourceGroup" type="HBoxContainer" parent="StatusBar/HBox"]
-layout_mode = 2
-theme_override_constants/separation = 32
+[node name="NameModule" type="Control" parent="StatusBar/ModuleCanvas" unique_id=640231040]
+custom_minimum_size = Vector2(180, 32)
+anchors_preset = 0
+offset_left = 40.0
+offset_top = 8.0
+offset_right = 220.0
+offset_bottom = 40.0
 
-[node name="EnergyInd" type="HBoxContainer" parent="StatusBar/HBox/ResourceGroup"]
-layout_mode = 2
-theme_override_constants/separation = 8
-
-[node name="Icon" type="Label" parent="StatusBar/HBox/ResourceGroup/EnergyInd"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 16
-text = "⚡"
-
-[node name="Value" type="Label" parent="StatusBar/HBox/ResourceGroup/EnergyInd"]
-layout_mode = 2
+[node name="PlayerName" type="Label" parent="StatusBar/ModuleCanvas/NameModule" unique_id=153920886]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_colors/font_color = Color(0.909804, 0.909804, 0.909804, 1)
 theme_override_font_sizes/font_size = 18
-text = "7/10"
+text = "玩家名"
+vertical_alignment = 1
 
-[node name="Bar" type="ProgressBar" parent="StatusBar/HBox/ResourceGroup/EnergyInd"]
-custom_minimum_size = Vector2(60, 3)
-layout_mode = 2
+[node name="ResourceModule" type="Control" parent="StatusBar/ModuleCanvas" unique_id=1386037018]
+custom_minimum_size = Vector2(520, 32)
+anchors_preset = 0
+offset_left = 202.0
+offset_top = 8.0
+offset_right = 722.0
+offset_bottom = 40.0
+
+[node name="ResourceGroup" type="Control" parent="StatusBar/ModuleCanvas/ResourceModule" unique_id=1877842702]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EnergyInd" type="Control" parent="StatusBar/ModuleCanvas/ResourceModule/ResourceGroup" unique_id=1786642913]
+custom_minimum_size = Vector2(176, 32)
+anchors_preset = 0
+offset_right = 176.0
+offset_bottom = 32.0
+
+[node name="Icon" type="TextureRect" parent="StatusBar/ModuleCanvas/ResourceModule/ResourceGroup/EnergyInd" unique_id=1667005743]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.082
+anchor_top = 0.5
+anchor_right = 0.082
+anchor_bottom = 0.5
+offset_left = -27.432
+offset_top = -25.0
+offset_right = 27.568
+offset_bottom = 25.0
+texture = ExtResource("2_6klma")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="BarWrap" type="Control" parent="StatusBar/ModuleCanvas/ResourceModule/ResourceGroup/EnergyInd" unique_id=1543782201]
+custom_minimum_size = Vector2(136, 18)
+anchors_preset = 0
+offset_left = 40.0
+offset_top = 7.0
+offset_right = 176.0
+offset_bottom = 25.0
+
+[node name="Bar" type="ProgressBar" parent="StatusBar/ModuleCanvas/ResourceModule/ResourceGroup/EnergyInd/BarWrap" unique_id=63992519]
+custom_minimum_size = Vector2(136, 18)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/font_size = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_3jhtt")
+theme_override_styles/fill = SubResource("StyleBoxFlat_uua6l")
 max_value = 10.0
 value = 7.0
 show_percentage = false
 
-[node name="MoodInd" type="HBoxContainer" parent="StatusBar/HBox/ResourceGroup"]
-layout_mode = 2
-theme_override_constants/separation = 8
+[node name="Value" type="Label" parent="StatusBar/ModuleCanvas/ResourceModule/ResourceGroup/EnergyInd/BarWrap" unique_id=76051169]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.9098039, 0.9098039, 0.9098039, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.35)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 13
+text = "7/10"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Icon" type="Label" parent="StatusBar/HBox/ResourceGroup/MoodInd"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 16
-text = "😊"
+[node name="MoodInd" type="Control" parent="StatusBar/ModuleCanvas/ResourceModule/ResourceGroup" unique_id=1888904121]
+custom_minimum_size = Vector2(176, 32)
+anchors_preset = 0
+offset_left = 192.0
+offset_right = 368.0
+offset_bottom = 32.0
 
-[node name="Value" type="Label" parent="StatusBar/HBox/ResourceGroup/MoodInd"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.909804, 0.909804, 0.909804, 1)
-theme_override_font_sizes/font_size = 18
-text = "6"
+[node name="Icon" type="TextureRect" parent="StatusBar/ModuleCanvas/ResourceModule/ResourceGroup/MoodInd" unique_id=595527120]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.085
+anchor_top = 0.5
+anchor_right = 0.085
+anchor_bottom = 0.5
+offset_left = -27.96
+offset_top = -25.0
+offset_right = 28.04
+offset_bottom = 25.0
+texture = SubResource("CompressedTexture2D_1eknn")
+expand_mode = 2
+stretch_mode = 5
 
-[node name="Bar" type="ProgressBar" parent="StatusBar/HBox/ResourceGroup/MoodInd"]
-custom_minimum_size = Vector2(60, 3)
-layout_mode = 2
+[node name="BarWrap" type="Control" parent="StatusBar/ModuleCanvas/ResourceModule/ResourceGroup/MoodInd" unique_id=581274429]
+custom_minimum_size = Vector2(136, 18)
+anchors_preset = 0
+offset_left = 40.0
+offset_top = 7.0
+offset_right = 176.0
+offset_bottom = 25.0
+
+[node name="Bar" type="ProgressBar" parent="StatusBar/ModuleCanvas/ResourceModule/ResourceGroup/MoodInd/BarWrap" unique_id=1815727881]
+custom_minimum_size = Vector2(136, 18)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/font_size = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_r1gg0")
+theme_override_styles/fill = SubResource("StyleBoxFlat_q6e1w")
 max_value = 10.0
 value = 6.0
 show_percentage = false
 
-[node name="MoneyInd" type="HBoxContainer" parent="StatusBar/HBox/ResourceGroup"]
-layout_mode = 2
-theme_override_constants/separation = 8
+[node name="Value" type="Label" parent="StatusBar/ModuleCanvas/ResourceModule/ResourceGroup/MoodInd/BarWrap" unique_id=825035066]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.9098039, 0.9098039, 0.9098039, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.35)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 13
+text = "6/10"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Icon" type="Label" parent="StatusBar/HBox/ResourceGroup/MoneyInd"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 16
-text = "💰"
+[node name="MoneyInd" type="Control" parent="StatusBar/ModuleCanvas/ResourceModule/ResourceGroup" unique_id=1039086247]
+custom_minimum_size = Vector2(128, 32)
+anchors_preset = 0
+offset_left = 392.0
+offset_right = 520.0
+offset_bottom = 32.0
 
-[node name="Value" type="Label" parent="StatusBar/HBox/ResourceGroup/MoneyInd"]
-layout_mode = 2
+[node name="Icon" type="TextureRect" parent="StatusBar/ModuleCanvas/ResourceModule/ResourceGroup/MoneyInd" unique_id=1425384620]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.125
+anchor_top = 0.5
+anchor_right = 0.125
+anchor_bottom = 0.5
+offset_left = -29.0
+offset_top = -25.0
+offset_right = 29.0
+offset_bottom = 25.0
+texture = SubResource("CompressedTexture2D_22uqf")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Value" type="Label" parent="StatusBar/ModuleCanvas/ResourceModule/ResourceGroup/MoneyInd" unique_id=906078822]
+custom_minimum_size = Vector2(96, 32)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.711
+anchor_top = 0.531
+anchor_right = 0.711
+anchor_bottom = 0.531
+offset_left = -48.008003
+offset_top = -15.992001
+offset_right = 47.991997
+offset_bottom = 16.008
 theme_override_colors/font_color = Color(0.941176, 0.780392, 0.368627, 1)
 theme_override_font_sizes/font_size = 18
-text = "200"
+text = "200 元"
+vertical_alignment = 1
 
-[node name="CenterSpacer" type="Control" parent="StatusBar/HBox"]
-layout_mode = 2
-size_flags_horizontal = 3
+[node name="AttrModule" type="Control" parent="StatusBar/ModuleCanvas" unique_id=630245042]
+custom_minimum_size = Vector2(280, 28)
+anchors_preset = 0
+offset_left = 880.0
+offset_top = 10.0
+offset_right = 1160.0
+offset_bottom = 38.0
 
-[node name="AttrGroup" type="HBoxContainer" parent="StatusBar/HBox"]
-layout_mode = 2
-theme_override_constants/separation = 16
+[node name="AttrGroup" type="Control" parent="StatusBar/ModuleCanvas/AttrModule" unique_id=602548161]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Knowledge" type="HBoxContainer" parent="StatusBar/HBox/AttrGroup"]
-layout_mode = 2
-theme_override_constants/separation = 4
+[node name="Knowledge" type="Control" parent="StatusBar/ModuleCanvas/AttrModule/AttrGroup" unique_id=1973010279]
+custom_minimum_size = Vector2(52, 24)
+anchors_preset = 0
+offset_right = 52.0
+offset_bottom = 24.0
 
-[node name="Dot" type="ColorRect" parent="StatusBar/HBox/AttrGroup/Knowledge"]
-custom_minimum_size = Vector2(12, 12)
-layout_mode = 2
-color = Color(0.227451, 0.372549, 0.541176, 1)
+[node name="Dot" type="TextureRect" parent="StatusBar/ModuleCanvas/AttrModule/AttrGroup/Knowledge" unique_id=1486868648]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.298
+anchor_top = 0.5
+anchor_right = 0.298
+anchor_bottom = 0.5
+offset_left = -58.496002
+offset_top = -34.0
+offset_right = 58.503998
+offset_bottom = 36.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_a5xvv")
+expand_mode = 2
+stretch_mode = 4
 
-[node name="Value" type="Label" parent="StatusBar/HBox/AttrGroup/Knowledge"]
-layout_mode = 2
+[node name="Value" type="Label" parent="StatusBar/ModuleCanvas/AttrModule/AttrGroup/Knowledge" unique_id=319300047]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.63500005
+anchor_top = 0.5
+anchor_right = 0.63500005
+anchor_bottom = 0.5
+offset_left = -12.020004
+offset_top = -12.0
+offset_right = 11.979996
+offset_bottom = 12.0
 theme_override_colors/font_color = Color(0.533333, 0.564706, 0.643137, 1)
 theme_override_font_sizes/font_size = 14
 text = "2"
+vertical_alignment = 1
 
-[node name="Eloquence" type="HBoxContainer" parent="StatusBar/HBox/AttrGroup"]
-layout_mode = 2
-theme_override_constants/separation = 4
+[node name="Eloquence" type="Control" parent="StatusBar/ModuleCanvas/AttrModule/AttrGroup" unique_id=1719523046]
+custom_minimum_size = Vector2(52, 24)
+anchors_preset = 0
+offset_left = 76.0
+offset_right = 128.0
+offset_bottom = 24.0
 
-[node name="Dot" type="ColorRect" parent="StatusBar/HBox/AttrGroup/Eloquence"]
-custom_minimum_size = Vector2(12, 12)
-layout_mode = 2
-color = Color(0.768627, 0.470588, 0.196078, 1)
+[node name="Dot" type="TextureRect" parent="StatusBar/ModuleCanvas/AttrModule/AttrGroup/Eloquence" unique_id=1191846815]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -31.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_vertical = 2
+texture = ExtResource("4_kd00h")
+expand_mode = 2
+stretch_mode = 5
 
-[node name="Value" type="Label" parent="StatusBar/HBox/AttrGroup/Eloquence"]
-layout_mode = 2
+[node name="Value" type="Label" parent="StatusBar/ModuleCanvas/AttrModule/AttrGroup/Eloquence" unique_id=1943007427]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.76900005
+anchor_top = 0.5
+anchor_right = 0.76900005
+anchor_bottom = 0.5
+offset_left = -7.988003
+offset_top = -12.0
+offset_right = 16.011997
+offset_bottom = 12.0
 theme_override_colors/font_color = Color(0.533333, 0.564706, 0.643137, 1)
 theme_override_font_sizes/font_size = 14
 text = "2"
+vertical_alignment = 1
 
-[node name="Physique" type="HBoxContainer" parent="StatusBar/HBox/AttrGroup"]
-layout_mode = 2
-theme_override_constants/separation = 4
+[node name="Physique" type="Control" parent="StatusBar/ModuleCanvas/AttrModule/AttrGroup" unique_id=660699143]
+custom_minimum_size = Vector2(52, 24)
+anchors_preset = 0
+offset_left = 152.0
+offset_right = 204.0
+offset_bottom = 24.0
 
-[node name="Dot" type="ColorRect" parent="StatusBar/HBox/AttrGroup/Physique"]
-custom_minimum_size = Vector2(12, 12)
-layout_mode = 2
-color = Color(0.290196, 0.541176, 0.352941, 1)
+[node name="Dot" type="TextureRect" parent="StatusBar/ModuleCanvas/AttrModule/AttrGroup/Physique" unique_id=180617645]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.07700001
+anchor_top = 0.5
+anchor_right = 0.07700001
+anchor_bottom = 0.5
+offset_left = -32.004
+offset_top = -27.0
+offset_right = 31.996
+offset_bottom = 27.0
+texture = ExtResource("5_3jhtt")
+expand_mode = 2
+stretch_mode = 5
 
-[node name="Value" type="Label" parent="StatusBar/HBox/AttrGroup/Physique"]
-layout_mode = 2
+[node name="Value" type="Label" parent="StatusBar/ModuleCanvas/AttrModule/AttrGroup/Physique" unique_id=1499707509]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.731
+anchor_top = 0.5
+anchor_right = 0.731
+anchor_bottom = 0.5
+offset_left = -8.012001
+offset_top = -12.0
+offset_right = 15.987999
+offset_bottom = 12.0
 theme_override_colors/font_color = Color(0.533333, 0.564706, 0.643137, 1)
 theme_override_font_sizes/font_size = 14
 text = "2"
+vertical_alignment = 1
 
-[node name="Insight" type="HBoxContainer" parent="StatusBar/HBox/AttrGroup"]
-layout_mode = 2
-theme_override_constants/separation = 4
+[node name="Insight" type="Control" parent="StatusBar/ModuleCanvas/AttrModule/AttrGroup" unique_id=1845922795]
+custom_minimum_size = Vector2(52, 24)
+anchors_preset = 0
+offset_left = 228.0
+offset_right = 280.0
+offset_bottom = 24.0
 
-[node name="Dot" type="ColorRect" parent="StatusBar/HBox/AttrGroup/Insight"]
-custom_minimum_size = Vector2(12, 12)
-layout_mode = 2
-color = Color(0.352941, 0.478431, 0.352941, 1)
+[node name="Dot" type="TextureRect" parent="StatusBar/ModuleCanvas/AttrModule/AttrGroup/Insight" unique_id=1642523567]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.048
+anchor_top = 0.5
+anchor_right = 0.048
+anchor_bottom = 0.5
+offset_left = -37.496
+offset_top = -31.0
+offset_right = 37.504
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_uua6l")
+expand_mode = 2
+stretch_mode = 5
 
-[node name="Value" type="Label" parent="StatusBar/HBox/AttrGroup/Insight"]
-layout_mode = 2
+[node name="Value" type="Label" parent="StatusBar/ModuleCanvas/AttrModule/AttrGroup/Insight" unique_id=1964871985]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.76900005
+anchor_top = 0.5
+anchor_right = 0.76900005
+anchor_bottom = 0.5
+offset_left = -8.988003
+offset_top = -12.0
+offset_right = 15.011997
+offset_bottom = 12.0
 theme_override_colors/font_color = Color(0.533333, 0.564706, 0.643137, 1)
 theme_override_font_sizes/font_size = 14
 text = "2"
+vertical_alignment = 1
 
-[node name="RightSpacer" type="Control" parent="StatusBar/HBox"]
-layout_mode = 2
-size_flags_horizontal = 3
+[node name="FuncModule" type="Control" parent="StatusBar/ModuleCanvas" unique_id=2129184632]
+custom_minimum_size = Vector2(96, 40)
+anchors_preset = 0
+offset_left = 1784.0
+offset_top = 4.0
+offset_right = 1880.0
+offset_bottom = 44.0
 
-[node name="FuncBtns" type="HBoxContainer" parent="StatusBar/HBox"]
-layout_mode = 2
-theme_override_constants/separation = 12
+[node name="FuncBtns" type="Control" parent="StatusBar/ModuleCanvas/FuncModule" unique_id=454490591]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="PhoneBtn" type="TextureButton" parent="StatusBar/HBox/FuncBtns"]
+[node name="ComputerBtn" type="TextureButton" parent="StatusBar/ModuleCanvas/FuncModule/FuncBtns" unique_id=2109100919]
+modulate = Color(1, 1, 1, 0.7)
 custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.411
+anchor_top = 0.45000002
+anchor_right = -0.411
+anchor_bottom = 0.45000002
+offset_left = -26.543999
+offset_top = -27.0
+offset_right = 26.456001
+offset_bottom = 27.0
+texture_normal = ExtResource("5_computer")
+texture_pressed = ExtResource("5_computer")
+texture_hover = ExtResource("5_computer")
+texture_disabled = ExtResource("5_computer")
+ignore_texture_size = true
+stretch_mode = 5
 
-[node name="UnreadDot" type="ColorRect" parent="StatusBar/HBox/FuncBtns/PhoneBtn"]
+[node name="PhoneBtn" type="TextureButton" parent="StatusBar/ModuleCanvas/FuncModule/FuncBtns" unique_id=1893911787]
+modulate = Color(1, 1, 1, 0.92)
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.349
+anchor_top = 0.48700002
+anchor_right = 0.349
+anchor_bottom = 0.48700002
+offset_left = -26.504002
+offset_top = -28.480001
+offset_right = 26.495998
+offset_bottom = 28.519999
+texture_normal = ExtResource("3_phone")
+texture_pressed = ExtResource("4_phone_highlight")
+texture_hover = ExtResource("4_phone_highlight")
+texture_disabled = ExtResource("3_phone")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="UnreadDot" type="ColorRect" parent="StatusBar/ModuleCanvas/FuncModule/FuncBtns/PhoneBtn" unique_id=582376753]
 visible = false
 custom_minimum_size = Vector2(8, 8)
 layout_mode = 1
@@ -193,22 +568,14 @@ offset_bottom = 6.0
 grow_horizontal = 0
 color = Color(0.831373, 0.337255, 0.290196, 1)
 
-[node name="ComputerBtn" type="TextureButton" parent="StatusBar/HBox/FuncBtns"]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-
-[node name="RightMargin" type="Control" parent="StatusBar/HBox"]
-custom_minimum_size = Vector2(40, 0)
-layout_mode = 2
-
-[node name="StageArea" type="Control" parent="."]
+[node name="StageArea" type="Control" parent="." unique_id=154906429]
 layout_mode = 1
 anchors_preset = 0
 offset_top = 48.0
 offset_right = 1920.0
 offset_bottom = 468.0
 
-[node name="StageBg" type="ColorRect" parent="StageArea"]
+[node name="StageBg" type="ColorRect" parent="StageArea" unique_id=1271254809]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -217,7 +584,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.0745098, 0.0941176, 0.145098, 1)
 
-[node name="DayLabel" type="Label" parent="StageArea"]
+[node name="DayLabel" type="Label" parent="StageArea" unique_id=401054044]
 layout_mode = 0
 offset_left = 60.0
 offset_top = 20.0
@@ -227,7 +594,7 @@ theme_override_colors/font_color = Color(0.533333, 0.564706, 0.643137, 1)
 theme_override_font_sizes/font_size = 14
 text = "Day 01 · 周一"
 
-[node name="PeriodLabel" type="Label" parent="StageArea"]
+[node name="PeriodLabel" type="Label" parent="StageArea" unique_id=985140312]
 layout_mode = 0
 offset_left = 60.0
 offset_top = 44.0
@@ -237,7 +604,7 @@ theme_override_colors/font_color = Color(0.909804, 0.909804, 0.909804, 1)
 theme_override_font_sizes/font_size = 20
 text = "上午 · 校园日景"
 
-[node name="ContextText" type="Label" parent="StageArea"]
+[node name="ContextText" type="Label" parent="StageArea" unique_id=670358027]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -252,10 +619,9 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_colors/font_color = Color(0.533333, 0.564706, 0.643137, 1)
 theme_override_font_sizes/font_size = 16
-text = ""
 horizontal_alignment = 1
 
-[node name="CharacterSlots" type="Control" parent="StageArea"]
+[node name="CharacterSlots" type="Control" parent="StageArea" unique_id=1075702229]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -263,23 +629,23 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PeriodBar" type="PanelContainer" parent="."]
+[node name="PeriodBar" type="PanelContainer" parent="." unique_id=643950480]
 custom_minimum_size = Vector2(1920, 64)
 layout_mode = 1
-anchors_preset = 0
 offset_top = 468.0
 offset_right = 1920.0
 offset_bottom = 532.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_1e76w")
 
-[node name="HBox" type="HBoxContainer" parent="PeriodBar"]
+[node name="HBox" type="HBoxContainer" parent="PeriodBar" unique_id=1331718117]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="MorningSlot" type="Panel" parent="PeriodBar/HBox"]
+[node name="MorningSlot" type="Panel" parent="PeriodBar/HBox" unique_id=790089467]
 custom_minimum_size = Vector2(640, 64)
 layout_mode = 2
 
-[node name="HBox" type="HBoxContainer" parent="PeriodBar/HBox/MorningSlot"]
+[node name="HBox" type="HBoxContainer" parent="PeriodBar/HBox/MorningSlot" unique_id=65887641]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -288,36 +654,36 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 12
 
-[node name="LeftMargin" type="Control" parent="PeriodBar/HBox/MorningSlot/HBox"]
+[node name="LeftMargin" type="Control" parent="PeriodBar/HBox/MorningSlot/HBox" unique_id=2075538479]
 custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
 
-[node name="Icon" type="Label" parent="PeriodBar/HBox/MorningSlot/HBox"]
+[node name="Icon" type="Label" parent="PeriodBar/HBox/MorningSlot/HBox" unique_id=1410305603]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "☀"
 
-[node name="Name" type="Label" parent="PeriodBar/HBox/MorningSlot/HBox"]
+[node name="Name" type="Label" parent="PeriodBar/HBox/MorningSlot/HBox" unique_id=1647082042]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.909804, 0.909804, 0.909804, 1)
 theme_override_font_sizes/font_size = 16
 text = "上午"
 
-[node name="Spacer" type="Control" parent="PeriodBar/HBox/MorningSlot/HBox"]
+[node name="Spacer" type="Control" parent="PeriodBar/HBox/MorningSlot/HBox" unique_id=2117183004]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Status" type="Label" parent="PeriodBar/HBox/MorningSlot/HBox"]
+[node name="Status" type="Label" parent="PeriodBar/HBox/MorningSlot/HBox" unique_id=1671681394]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.909804, 0.909804, 0.909804, 1)
 theme_override_font_sizes/font_size = 16
 text = "进行中 · AP 2/2"
 
-[node name="RightMargin" type="Control" parent="PeriodBar/HBox/MorningSlot/HBox"]
+[node name="RightMargin" type="Control" parent="PeriodBar/HBox/MorningSlot/HBox" unique_id=1440830884]
 custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
 
-[node name="ActiveLine" type="ColorRect" parent="PeriodBar/HBox/MorningSlot"]
+[node name="ActiveLine" type="ColorRect" parent="PeriodBar/HBox/MorningSlot" unique_id=1127681466]
 custom_minimum_size = Vector2(3, 48)
 layout_mode = 1
 anchors_preset = 4
@@ -329,16 +695,16 @@ offset_bottom = 24.0
 grow_vertical = 2
 color = Color(0.909804, 0.658824, 0.219608, 1)
 
-[node name="Div1" type="ColorRect" parent="PeriodBar/HBox"]
+[node name="Div1" type="ColorRect" parent="PeriodBar/HBox" unique_id=204959330]
 custom_minimum_size = Vector2(1, 48)
 layout_mode = 2
 color = Color(1, 1, 1, 0.0588235)
 
-[node name="AfternoonSlot" type="Panel" parent="PeriodBar/HBox"]
+[node name="AfternoonSlot" type="Panel" parent="PeriodBar/HBox" unique_id=271847498]
 custom_minimum_size = Vector2(640, 64)
 layout_mode = 2
 
-[node name="HBox" type="HBoxContainer" parent="PeriodBar/HBox/AfternoonSlot"]
+[node name="HBox" type="HBoxContainer" parent="PeriodBar/HBox/AfternoonSlot" unique_id=1707962539]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -347,45 +713,45 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 12
 
-[node name="LeftMargin" type="Control" parent="PeriodBar/HBox/AfternoonSlot/HBox"]
+[node name="LeftMargin" type="Control" parent="PeriodBar/HBox/AfternoonSlot/HBox" unique_id=1247321571]
 custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
 
-[node name="Icon" type="Label" parent="PeriodBar/HBox/AfternoonSlot/HBox"]
+[node name="Icon" type="Label" parent="PeriodBar/HBox/AfternoonSlot/HBox" unique_id=1573666975]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "🌤"
 
-[node name="Name" type="Label" parent="PeriodBar/HBox/AfternoonSlot/HBox"]
+[node name="Name" type="Label" parent="PeriodBar/HBox/AfternoonSlot/HBox" unique_id=277061820]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.533333, 0.564706, 0.643137, 1)
 theme_override_font_sizes/font_size = 16
 text = "下午"
 
-[node name="Spacer" type="Control" parent="PeriodBar/HBox/AfternoonSlot/HBox"]
+[node name="Spacer" type="Control" parent="PeriodBar/HBox/AfternoonSlot/HBox" unique_id=647040374]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Status" type="Label" parent="PeriodBar/HBox/AfternoonSlot/HBox"]
+[node name="Status" type="Label" parent="PeriodBar/HBox/AfternoonSlot/HBox" unique_id=397390322]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.533333, 0.564706, 0.643137, 1)
 theme_override_font_sizes/font_size = 16
 text = "未开始"
 
-[node name="RightMargin" type="Control" parent="PeriodBar/HBox/AfternoonSlot/HBox"]
+[node name="RightMargin" type="Control" parent="PeriodBar/HBox/AfternoonSlot/HBox" unique_id=166021877]
 custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
 
-[node name="Div2" type="ColorRect" parent="PeriodBar/HBox"]
+[node name="Div2" type="ColorRect" parent="PeriodBar/HBox" unique_id=2115076300]
 custom_minimum_size = Vector2(1, 48)
 layout_mode = 2
 color = Color(1, 1, 1, 0.0588235)
 
-[node name="EveningSlot" type="Panel" parent="PeriodBar/HBox"]
+[node name="EveningSlot" type="Panel" parent="PeriodBar/HBox" unique_id=2104616756]
 custom_minimum_size = Vector2(640, 64)
 layout_mode = 2
 
-[node name="HBox" type="HBoxContainer" parent="PeriodBar/HBox/EveningSlot"]
+[node name="HBox" type="HBoxContainer" parent="PeriodBar/HBox/EveningSlot" unique_id=336636070]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -394,93 +760,99 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 12
 
-[node name="LeftMargin" type="Control" parent="PeriodBar/HBox/EveningSlot/HBox"]
+[node name="LeftMargin" type="Control" parent="PeriodBar/HBox/EveningSlot/HBox" unique_id=1608161055]
 custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
 
-[node name="Icon" type="Label" parent="PeriodBar/HBox/EveningSlot/HBox"]
+[node name="Icon" type="Label" parent="PeriodBar/HBox/EveningSlot/HBox" unique_id=1596332495]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "🌙"
 
-[node name="Name" type="Label" parent="PeriodBar/HBox/EveningSlot/HBox"]
+[node name="Name" type="Label" parent="PeriodBar/HBox/EveningSlot/HBox" unique_id=1887326986]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.533333, 0.564706, 0.643137, 1)
 theme_override_font_sizes/font_size = 16
 text = "晚间"
 
-[node name="Spacer" type="Control" parent="PeriodBar/HBox/EveningSlot/HBox"]
+[node name="Spacer" type="Control" parent="PeriodBar/HBox/EveningSlot/HBox" unique_id=1545436819]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Status" type="Label" parent="PeriodBar/HBox/EveningSlot/HBox"]
+[node name="Status" type="Label" parent="PeriodBar/HBox/EveningSlot/HBox" unique_id=944196606]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.533333, 0.564706, 0.643137, 1)
 theme_override_font_sizes/font_size = 16
 text = "未开始"
 
-[node name="RightMargin" type="Control" parent="PeriodBar/HBox/EveningSlot/HBox"]
+[node name="RightMargin" type="Control" parent="PeriodBar/HBox/EveningSlot/HBox" unique_id=1962451760]
 custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
 
-[node name="HandArea" type="PanelContainer" parent="."]
+[node name="HandArea" type="PanelContainer" parent="." unique_id=1217449581]
 custom_minimum_size = Vector2(1920, 548)
 layout_mode = 1
-anchors_preset = 0
 offset_top = 532.0
 offset_right = 1920.0
 offset_bottom = 1080.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dmaht")
 
-[node name="VBox" type="VBoxContainer" parent="HandArea"]
+[node name="VBox" type="VBoxContainer" parent="HandArea" unique_id=1663071564]
 layout_mode = 2
 theme_override_constants/separation = 24
 
-[node name="TopSpacer" type="Control" parent="HandArea/VBox"]
+[node name="TopSpacer" type="Control" parent="HandArea/VBox" unique_id=372704139]
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
 
-[node name="TitleRow" type="HBoxContainer" parent="HandArea/VBox"]
+[node name="TitleRow" type="HBoxContainer" parent="HandArea/VBox" unique_id=77267586]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 
-[node name="LeftMargin" type="Control" parent="HandArea/VBox/TitleRow"]
+[node name="LeftMargin" type="Control" parent="HandArea/VBox/TitleRow" unique_id=1010109154]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 
-[node name="Title" type="Label" parent="HandArea/VBox/TitleRow"]
+[node name="Title" type="Label" parent="HandArea/VBox/TitleRow" unique_id=362106795]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.533333, 0.564706, 0.643137, 1)
 theme_override_font_sizes/font_size = 16
 text = "上午 · 行动手牌"
 
-[node name="Spacer" type="Control" parent="HandArea/VBox/TitleRow"]
+[node name="Spacer" type="Control" parent="HandArea/VBox/TitleRow" unique_id=1130212490]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ConfirmBtn" type="Button" parent="HandArea/VBox/TitleRow"]
+[node name="ConfirmBtn" type="Button" parent="HandArea/VBox/TitleRow" unique_id=1802394604]
 custom_minimum_size = Vector2(140, 44)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.53333336, 0.5647059, 0.6431373, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_l6e83")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_l6e83")
+theme_override_styles/hover = SubResource("StyleBoxFlat_l6e83")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_l6e83")
 disabled = true
 text = "确认行动"
 
-[node name="RightMargin" type="Control" parent="HandArea/VBox/TitleRow"]
+[node name="RightMargin" type="Control" parent="HandArea/VBox/TitleRow" unique_id=1008190981]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 
-[node name="CardRow" type="HBoxContainer" parent="HandArea/VBox"]
+[node name="CardRow" type="HBoxContainer" parent="HandArea/VBox" unique_id=150209287]
 custom_minimum_size = Vector2(0, 280)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="DetailPanel" type="Panel" parent="HandArea/VBox"]
+[node name="DetailPanel" type="Panel" parent="HandArea/VBox" unique_id=1999701859]
 visible = false
 custom_minimum_size = Vector2(880, 120)
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_s5kcl")
 
-[node name="MarginContainer" type="MarginContainer" parent="HandArea/VBox/DetailPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="HandArea/VBox/DetailPanel" unique_id=854172170]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -492,23 +864,23 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 16
 
-[node name="VBox" type="VBoxContainer" parent="HandArea/VBox/DetailPanel/MarginContainer"]
+[node name="VBox" type="VBoxContainer" parent="HandArea/VBox/DetailPanel/MarginContainer" unique_id=295016243]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="CardName" type="Label" parent="HandArea/VBox/DetailPanel/MarginContainer/VBox"]
+[node name="CardName" type="Label" parent="HandArea/VBox/DetailPanel/MarginContainer/VBox" unique_id=812047180]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.909804, 0.909804, 0.909804, 1)
 theme_override_font_sizes/font_size = 18
 text = "专业课"
 
-[node name="CardInfo" type="Label" parent="HandArea/VBox/DetailPanel/MarginContainer/VBox"]
+[node name="CardInfo" type="Label" parent="HandArea/VBox/DetailPanel/MarginContainer/VBox" unique_id=583070502]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.533333, 0.564706, 0.643137, 1)
 theme_override_font_sizes/font_size = 14
 text = "大类：上课 | 消耗：2 AP · 1 精力"
 
-[node name="DetailContent" type="RichTextLabel" parent="HandArea/VBox/DetailPanel/MarginContainer/VBox"]
+[node name="DetailContent" type="RichTextLabel" parent="HandArea/VBox/DetailPanel/MarginContainer/VBox" unique_id=1646256409]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_vertical = 3
@@ -518,14 +890,13 @@ text = "[color=#5a9e8f]学识+1[/color] · [color=#d4564a]精力-1[/color]"
 fit_content = true
 scroll_active = false
 
-[node name="LowEnergyWarning" type="Label" parent="HandArea/VBox/DetailPanel/MarginContainer/VBox"]
+[node name="LowEnergyWarning" type="Label" parent="HandArea/VBox/DetailPanel/MarginContainer/VBox" unique_id=1434872587]
 visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.831373, 0.337255, 0.290196, 1)
 theme_override_font_sizes/font_size = 14
 text = "⚠ 当前精力较低，效果将减半"
 
-[node name="BottomSpacer" type="Control" parent="HandArea/VBox"]
+[node name="BottomSpacer" type="Control" parent="HandArea/VBox" unique_id=502898454]
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
-
